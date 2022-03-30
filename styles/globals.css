@@ -1,9 +1,28 @@
-html,
-body {
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: IranSans;
+  src: url(./../font/IRANSansWeb.ttf);
+} 
+
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+}
+
+html{
+  font-size: 10px;
+}
+
+body {
+  direction: rtl;
+  font-family:IranSans 
 }
 
 a {
@@ -11,6 +30,230 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+:root {
+  --spacing-base: 4px;
+  --global-radius: 8px;
+  --small-radius: 4px;
+  --medium-radius: 8px;
+  --large-radius: 16px;
+  --font-family: IRANYekan,sans-serif;
+  --color-white: #fff;
+  --color-black: #0c0c0c;
+  --color-primary-700: #ef394e;
+  --color-primary-500: #ef4056;
+  --color-primary-300: #f37a8a;
+  --color-primary-100: #ffe440;
+  --color-secondary-700: #008eb2;
+  --color-secondary-500: #19bfd3;
+  --color-secondary-300: #008deb;
+  --color-secondary-100: #e6f4f7;
+  --color-green-700: #39ae00;
+  --color-green-500: #6bb927;
+  --color-green-300: #9dc44d;
+  --color-hint-object-neutral: #81858b;
+  --color-hint-object-error: #d32f2f;
+  --color-hint-object-success: #4caf50;
+  --color-hint-object-caution: #f9a825;
+  --color-hint-text-neutral: #62666d;
+  --color-hint-text-error: #b2001a;
+  --color-hint-text-success: #2e7b32;
+  --color-neutral-000: #fff;
+  --color-neutral-100: #f0f0f1;
+  --color-neutral-200: #e0e0e2;
+  --color-neutral-300: #c0c2c5;
+  --color-neutral-400: #a1a3a8;
+  --color-neutral-500: #81858b;
+  --color-neutral-600: #62666d;
+  --color-neutral-700: #424750;
+  --color-neutral-800: #232933;
+  --color-neutral-900: #0c0c0c;
+  --color-button-primary: #ef4056;
+  --color-button-secondary: #19bfd3;
+  --color-button-brand: #e6123d;
+  --color-button-white: #fff;
+  --color-button-black: #0c0c0c;
+  --color-button-disable: #e0e0e2;
+  --color-button-error: #b2001a;
+  --color-button-text-primary: #fff;
+  --color-button-text-secondary: #fff;
+  --color-button-text-white: #0c0c0c;
+  --color-button-text-black: #fff;
+  --color-button-hint-object-error: #d32f2f;
+  --color-icon-primary: #ef4056;
+  --color-icon-secondary: #19bfd3;
+  --color-icon-brand: #e6123d;
+  --color-icon-white: #fff;
+  --color-icon-black: #0c0c0c;
+  --color-icon-disable: #e0e0e2;
+  --color-icon-low-emphasis: #a1a3a8;
+  --color-icon-high-emphasis: #424750;
+  --color-icon-success: #4caf50;
+  --color-icon-warning: #f9a825;
+  --color-icon-neutral-hint: #81858b;
+  --color-icon-primary-100: #ffe440;
+  --color-icon-rating-0-2: #f9bc00;
+  --color-icon-rating-2-3: #b1b64d;
+  --color-icon-rating-3-4: #65aa57;
+  --color-icon-rating-4-5: #00a049;
+  --color-icon-error: #d32f2f;
+  --color-app-background: #f2f2f2;
+  --color-brand-primary-700: #e6123d;
+  --color-white-rgb: 255,255,255;
+  --color-black-rgb: 12,12,12;
+  --color-primary-700-rgb: 239,57,78;
+  --color-primary-500-rgb: 239,64,86;
+  --color-primary-300-rgb: 243,122,138;
+  --color-primary-100-rgb: 255,228,64;
+  --color-secondary-700-rgb: 0,142,178;
+  --color-secondary-500-rgb: 25,191,211;
+  --color-secondary-300-rgb: 0,141,235;
+  --color-secondary-100-rgb: 230,244,247;
+  --color-green-700-rgb: 57,174,0;
+  --color-green-500-rgb: 107,185,39;
+  --color-green-300-rgb: 157,196,77;
+  --color-hint-object-neutral-rgb: 129,133,139;
+  --color-hint-object-error-rgb: 211,47,47;
+  --color-hint-object-success-rgb: 76,175,80;
+  --color-hint-object-caution-rgb: 249,168,37;
+  --color-hint-text-neutral-rgb: 98,102,109;
+  --color-hint-text-error-rgb: 178,0,26;
+  --color-hint-text-success-rgb: 46,123,50;
+  --color-neutral-000-rgb: 255,255,255;
+  --color-neutral-100-rgb: 240,240,241;
+  --color-neutral-200-rgb: 224,224,226;
+  --color-neutral-300-rgb: 192,194,197;
+  --color-neutral-400-rgb: 161,163,168;
+  --color-neutral-500-rgb: 129,133,139;
+  --color-neutral-600-rgb: 98,102,109;
+  --color-neutral-700-rgb: 66,71,80;
+  --color-neutral-800-rgb: 35,41,51;
+  --color-neutral-900-rgb: 12,12,12;
+  --color-button-primary-rgb: 239,64,86;
+  --color-button-secondary-rgb: 25,191,211;
+  --color-button-brand-rgb: 230,18,61;
+  --color-button-white-rgb: 255,255,255;
+  --color-button-black-rgb: 12,12,12;
+  --color-button-disable-rgb: 224,224,226;
+  --color-button-error-rgb: 178,0,26;
+  --color-button-text-primary-rgb: 255,255,255;
+  --color-button-text-secondary-rgb: 255,255,255;
+  --color-button-text-white-rgb: 12,12,12;
+  --color-button-text-black-rgb: 255,255,255;
+  --color-button-hint-object-error-rgb: 211,47,47;
+  --color-icon-primary-rgb: 239,64,86;
+  --color-icon-secondary-rgb: 25,191,211;
+  --color-icon-brand-rgb: 230,18,61;
+  --color-icon-white-rgb: 255,255,255;
+  --color-icon-black-rgb: 12,12,12;
+  --color-icon-disable-rgb: 224,224,226;
+  --color-icon-low-emphasis-rgb: 161,163,168;
+  --color-icon-high-emphasis-rgb: 66,71,80;
+  --color-icon-success-rgb: 76,175,80;
+  --color-icon-warning-rgb: 249,168,37;
+  --color-icon-neutral-hint-rgb: 129,133,139;
+  --color-icon-primary-100-rgb: 255,228,64;
+  --color-icon-rating-0-2-rgb: 249,188,0;
+  --color-icon-rating-2-3-rgb: 177,182,77;
+  --color-icon-rating-3-4-rgb: 101,170,87;
+  --color-icon-rating-4-5-rgb: 0,160,73;
+  --color-icon-error-rgb: 211,47,47;
+  --color-app-background-rgb: 242,242,242;
+  --color-brand-primary-700-rgb: 230,18,61;
+}
+
+.card{
+  border: 1px solid var(--color-neutral-200)!important;
+  border-radius: var(--medium-radius);
+}
+.primary-button{
+  background-color: var(--color-button-primary);
+  color: var(--color-white);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 2.15;
+  padding: calc(3 * var(--spacing-base)) calc(4 * var(--spacing-base));
+  height: 48px;
+  width: 100%;
+  border-radius: var(--medium-radius);
+  cursor: pointer;
+}
+.text-h4 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.12;
+}
+.text-h5 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 2.15;
+}
+.text-body1-strong {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 2.15;
+}
+.text-body2-strong {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 2.17;
+}
+.text-subtitle-strong {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 2.15;
+}
+.text-caption {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2.17;
+}
+.text-button-1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 2.15;
+}
+
+
+
+@media screen and (min-width: 1024px) {
+  .text-h4 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 2.12;
+  }
+  .text-h5 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.15;
+  };
+  .text-body1-strong {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 2.15;
+  };
+  .text-body-2{
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 2.17;
+  };
+  .text-body2-strong {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 2.17;
+  }
+  .text-subtitle-strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 2.15;
+  }
+  .text-caption {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 2.17;
+  }
+  .text-button-1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 2.15;
+  }
 }
