@@ -1,6 +1,5 @@
-const Cart=()=>{
+const CartPage=()=>{
     return(
-        
         <section className="grid grid-cols-12 gap-3 p-5">
             <div className="col-span-12 lg:col-span-9 p-6 card">
                 <div className="py-3">
@@ -50,4 +49,4 @@ const Cart=()=>{
     )
 }
 
-export default Cart;
+export default CartPage;
