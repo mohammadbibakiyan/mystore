@@ -3,7 +3,7 @@ import Link from "next/link";
 const NotFoundPage=()=>{
     return(
         <div>
-            <img src="/images/404/404.png" className="border-0 w-full max-w-3xl mx-auto"/>
+            <img src="/images/404/404.png" className="w-full max-w-3xl mx-auto"/>
             <div className="text-center">
                 <h2 className="text-h4">صفحه مورد نظر پیدا نشد</h2>
                 <Link href="/">

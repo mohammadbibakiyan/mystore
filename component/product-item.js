@@ -3,7 +3,7 @@ const ProductItem=(props)=>{
         <div className="border border-solid border-gray-100 hover:shadow-md p-5">
             <a href="/">
                 <article>
-                    <div><img className="border-0" src={props.product_image.cover} alt={props.alt} /></div>
+                    <div><img src={props.product_image.cover} alt={props.alt} /></div>
                     <div>
                         <div><h2 className="text-body2-strong">{props.title}</h2></div>
                         <div>rate</div>
