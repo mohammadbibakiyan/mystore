@@ -1,7 +1,8 @@
+import Link from "next/link"
 const ProductItem=(props)=>{
     return(
         <div className="border border-solid border-gray-100 hover:shadow-md p-5">
-            <a href="/">
+            <Link href={`/product/${props._id}`}>
                 <article>
                     <div><img src={props.product_image.cover} alt={props.alt} /></div>
                     <div>
@@ -10,7 +11,7 @@ const ProductItem=(props)=>{
                         <div className="text-h5">تومان{props.price}</div>
                     </div>
                 </article>
-            </a>
+            </Link>
         </div>
     )
 }
