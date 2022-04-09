@@ -7,7 +7,7 @@ export default async function handler(req,res){
     const db=await client.db();
     const existUser=await db.collection("users").findOne({email});
     if(existUser){
-        res.status(422).json({message:"user already exist"});
+        res.status(422).json({status:"fail",data:{message:"این نام کاربری از قبل ثبت نام شده است"}});
         client.close();
         return
     }
@@ -16,6 +16,6 @@ export default async function handler(req,res){
         email: email,
         password: hashedPassword,
     });
-    res.status(201).json({message:"user created"})
+    res.status(201).json({status:"success",data:{message:"ثبت نام با موفقیت انجام شد"}})
     client.close();
 }
