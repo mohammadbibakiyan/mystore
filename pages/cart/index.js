@@ -34,7 +34,7 @@ const CartPage=()=>{
                         <span>1</span>
                         <button>-</button>
                     </div>
-                    <div className="col-span-5 text-h5"><pan>قیمت</pan><span>140000 تومان</span></div>
+                    <div className="col-span-5 text-h5"><span>قیمت</span><span>140000 تومان</span></div>
                 </div>
             </div>
             <div className="p-5 col-span-12 lg:col-span-3 card">

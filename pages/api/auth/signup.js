@@ -11,6 +11,11 @@ export default async function handler(req,res){
         client.close();
         return
     }
+    if(!email.includes("@")||email.trim().length<11||password.trim().length<8){
+        res.status(422).json({status:"fail",data:{message:"ایمیل باید معتبر باشد و پسورد باید حداقل دارای 8 کاراکتر داشته باشد"}});
+        client.close();
+        return  
+    }
     const hashedPassword=await hashPassword(password);
     await db.collection('users').insertOne({
         email: email,

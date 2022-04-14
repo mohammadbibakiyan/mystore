@@ -10,8 +10,8 @@ const AuthForm=(props)=>{
     const emailRef=useRef();
     const passwordRef=useRef();
 
-    const signinModeHandler=()=>{!login&&setLogin(true)};
-    const signupModeHandler=()=>{login&&setLogin(false)};
+    const signinModeHandler=()=>{!login&&setLogin(true);setAlert(false)};
+    const signupModeHandler=()=>{login&&setLogin(false),setAlert(false)};
 
     const submitHandler=async(e)=>{
         e.preventDefault();
@@ -49,11 +49,11 @@ const AuthForm=(props)=>{
 
     return(
     <div className="p-14 max-w-xl px-2 mx-auto">
-      <h1 className="text-h4 flex gap-5">
+      <h1 className="text-h4 flex gap-5 cursor-pointer">
           <div className={`text-center w-1/2 ${login&&"border-0 border-b border-solid border-red-500"}`} onClick={signinModeHandler}>ورود</div>
           <div className={`text-center w-1/2 ${!login&&"border-0 border-b border-solid border-red-500"}`} onClick={signupModeHandler}>ثبت نام</div>
       </h1>
-      <form className="flex flex-col gap-5" onSubmit={submitHandler}>
+      <form className="flex flex-col gap-5 mt-6" onSubmit={submitHandler}>
         <div>
           <label id="email" className="text-body-2">ایمیل</label>
           <input type="text" htmlFor="email" ref={emailRef}/>
@@ -62,11 +62,11 @@ const AuthForm=(props)=>{
           <label id="password" className="text-body-2">پسورد</label>
           <input type="password" htmlFor="password" ref={passwordRef}/>
         </div>
-        {alert&&<p>{alert}</p>}
-        <button className="primary-button mt-8">
+        <p className="text-body-2 text-red-700 h-8">{alert}</p>
+        <button className="primary-button">
           {login?"ورود":"ثبت نام"}
         </button>
-        <p>با ورود به سایت، شرایط و قوانین را می پذیرم</p>
+        <p>با ورود به سایت، شرایط و قوانین را می پذیرم.</p>
       </form>
     </div>
     );
