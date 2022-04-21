@@ -242,6 +242,11 @@ input:focus{
   font-weight: 400;
   line-height: 2.17;
 }
+.text-caption-strong {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 2.17;
+}
 .text-button-1 {
   font-size: 1.4rem;
   font-weight: 700;
@@ -301,6 +306,11 @@ input:focus{
     font-weight: 400;
     line-height: 2.17;
   }
+  .text-caption-strong {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 2.17;
+}
   .text-button-1 {
     font-size: 1.4rem;
     font-weight: 700;

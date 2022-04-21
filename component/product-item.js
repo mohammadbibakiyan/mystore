@@ -1,7 +1,7 @@
 import Link from "next/link"
 const ProductItem=(props)=>{
     return(
-        <div className="border border-solid border-gray-100 hover:shadow-md p-5">
+        <div className="border border-solid border-gray-100 hover:shadow-md p-5 cursor-pointer">
             <Link href={`/product/${props._id}`}>
                 <article>
                     <div><img src={props.product_image.cover} alt={props.alt} /></div>
