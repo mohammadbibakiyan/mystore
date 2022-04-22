@@ -13,7 +13,7 @@ const HamburgerMenu=()=>{
     return(
         <div className="">
             <img src="/icons/hamburger-menu.svg" onClick={showHandler}/>
-            <div id="overlay" onClick={showHandler2} className={`h-full w-full absolute right-0 top-0 ${show&&"block"} ${!show&&"hidden"}`}>
+            <div id="overlay" onClick={showHandler2} className={`h-full w-full absolute right-0 top-0 ${show&&"block"} z-50 ${!show&&"hidden"}`}>
                 <div id="item" className={`max-w-xl bg-white overflow-y-scroll w-96 h-full `}>
                     <img src="/icons/logo.svg" />
                     <details className="text-subtitle-strong px-8 text-gray-700">

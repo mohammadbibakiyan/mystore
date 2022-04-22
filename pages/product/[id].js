@@ -3,8 +3,8 @@ import { connectToDatabase } from "../../lib/db";
 import ProductIntroduction from "../../component/product-page/product-introduction";
 import ProductSpecifications from "../../component/product-page/product-specifications";
 
-const ProductDetail=(props)=>{
-        return(
+const ProductDetail=(props)=>{    
+    return(
         <>
         <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-5"> 
             <div><img src={props.product_image.cover} alt={props.title_alt}/></div>
@@ -69,7 +69,6 @@ const ProductDetail=(props)=>{
         {props.introduction&&<ProductIntroduction introduction={props.introduction}/>}
         {props.specifications&&<ProductSpecifications specifications={props.specifications}/>}
         </>
-
     )
 }
 export default ProductDetail;
