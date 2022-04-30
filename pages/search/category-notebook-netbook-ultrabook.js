@@ -1,5 +1,5 @@
-import Filter from "./../../component/filter"
-import ProductList from "../../component/product-list";
+import Filter from "../../component/product-page/filter"
+import ProductList from "../../component/product-page/product-list";
 
 import {connectToDatabase} from "./../../lib/db";
 
@@ -17,7 +17,7 @@ export default ProductPage;
 
 export async function getStaticProps(){
     const client=await connectToDatabase();
-    const db=await client.db();
+    const db=client.db();
     let result=await db.collection("laptop").find({}).toArray();
     result=JSON.parse(JSON.stringify(result));
     return{

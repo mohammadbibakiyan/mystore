@@ -19,7 +19,7 @@ const Layout=(props)=>{
                     <Link href="/"><a className="hidden md:inline cursor-pointer"><img src="/icons/logo2.svg" alt="logo" className="w-64"/></a></Link>
                     <div className="w-full max-w-5xl relative">
                         <img src="/icons/search.svg" className="w-10 opacity-50 absolute mt-5"/>
-                        {inputSearchValue&&<img src="/icons/close.svg" onClick={()=>setInputSearchValue("")} className="absolute left-2 mt-5 opacity-50 w-7 border border-solid border-gray-900 rounded-3xl"/>}
+                        {inputSearchValue&&<img src="/icons/close.svg" onClick={()=>setInputSearchValue("")} className="absolute left-2 mt-6 opacity-50 w-7 border border-solid border-neutral-900 rounded-3xl"/>}
                         <input type="text" placeholder="جستجو" value={inputSearchValue} onChange={(e)=>{setInputSearchValue(e.target.value)}} className="pr-10"/>
                     </div>
                 </div>
@@ -27,7 +27,7 @@ const Layout=(props)=>{
                 <div className="flex gap-5">
                     {!session&&<Link href="/users/login"><a className="hover:cursor-pointer"><img src="/icons/login.svg"/></a></Link>}
                     {session&&<ProfileButton/>}
-                    <Link href="/cart"><a className="hover:cursor-pointer"><img src="/icons/shopping-cart.svg"/></a></Link>
+                    <Link href="/checkout/cart"><a className="hover:cursor-pointer"><img src="/icons/shopping-cart.svg"/></a></Link>
                 </div> 
             </div>
 
@@ -36,10 +36,10 @@ const Layout=(props)=>{
                     <div className="hidden md:block">
                         <ul className="flex gap-8 items-center text-body-2">
                             <li className="text-body1-strong"><Link href="/search/category-notebook-netbook-ultrabook">دسته بندی کالا ها</Link></li>
-                            <li className="hover:text-red-500"><Link href="/">پرفروش ترین ها</Link></li>
-                            <li className="hover:text-red-500"><Link href="/">تخفیف ها و پیشنهادها</Link></li>
-                            <li className="hover:text-red-500"><Link href="/">شگفت انگیزها</Link></li>
-                            <li className="hover:text-red-500"><Link href="/">سوالی دارید</Link></li>
+                            <li className="hover:text-primary-500"><Link href="/">پرفروش ترین ها</Link></li>
+                            <li className="hover:text-primary-500"><Link href="/">تخفیف ها و پیشنهادها</Link></li>
+                            <li className="hover:text-primary-500"><Link href="/">شگفت انگیزها</Link></li>
+                            <li className="hover:text-primary-500"><Link href="/">سوالی دارید</Link></li>
                         </ul>
                     </div>
 

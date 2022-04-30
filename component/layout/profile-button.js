@@ -16,12 +16,12 @@ const ProfileButton=()=>{
             <div className={`${showDropDown?"block":"hidden"} absolute left-16 card`}>
                 <ul className="w-96 cursor-pointer bg-white">
                     <Link href="/profile">
-                        <li className="flex text-subtitle-strong items-center hover:bg-gray-100 px-6">
+                        <li className="flex text-subtitle-strong items-center hover:bg-neutral-100 px-6">
                             <div><img src="/icons/account_circle.svg" className="pl-5"/></div>
                             <div><span>پروفایل کاربر</span></div>
                         </li>
                     </Link>
-                    <li className="flex text-subtitle-strong items-center hover:bg-gray-100 px-6" onClick={()=>signOut()}>
+                    <li className="flex text-subtitle-strong items-center hover:bg-neutral-100 px-6" onClick={()=>signOut()}>
                         <div><img src="/icons/exit.svg" className="pl-5"/></div>
                         <div><span>خروج از حساب کاربری</span></div>
                     </li>

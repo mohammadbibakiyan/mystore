@@ -3,6 +3,9 @@ import Router from "next/router";
 import { useState,useEffect } from 'react';
 import Layout from "./../component/layout/layout";
 import Loader from '../component/layout/loader';
+import { Provider } from 'react-redux';
+import store from '../store/store';
+
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -27,9 +30,12 @@ function MyApp({ Component, pageProps }) {
   if(loading){
     return <Loader/>
   }
-  return <Layout>
-    <Component {...pageProps} />
-  </Layout>
+  return(
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>)
 }
 
 export default MyApp

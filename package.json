@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.1",
     "@tailwindcss/line-clamp": "^0.3.1",
     "bcryptjs": "^2.4.3",
     "mongodb": "^4.4.1",
@@ -16,7 +17,10 @@
     "next-auth": "^3.29.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-redux": "^8.0.1",
+    "redux": "^4.2.0",
     "sweetalert": "^2.1.2",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss": "^2.2.19"
   },
   "devDependencies": {

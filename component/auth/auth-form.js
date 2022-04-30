@@ -50,8 +50,8 @@ const AuthForm=(props)=>{
     return(
     <div className="p-14 max-w-xl px-2 mx-auto">
       <h1 className="text-h4 flex gap-5 cursor-pointer">
-          <div className={`text-center w-1/2 ${login&&"border-0 border-b border-solid border-red-500"}`} onClick={signinModeHandler}>ورود</div>
-          <div className={`text-center w-1/2 ${!login&&"border-0 border-b border-solid border-red-500"}`} onClick={signupModeHandler}>ثبت نام</div>
+          <div className={`text-center w-1/2 ${login&&"border-0 border-b border-solid border-primary-500"}`} onClick={signinModeHandler}>ورود</div>
+          <div className={`text-center w-1/2 ${!login&&"border-0 border-b border-solid border-primary-500"}`} onClick={signupModeHandler}>ثبت نام</div>
       </h1>
       <form className="flex flex-col gap-5 mt-6" onSubmit={submitHandler}>
         <div>
