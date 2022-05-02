@@ -6,6 +6,7 @@ import { addToCart } from "../../store/slice/cart-slice";
 
 import ProductIntroduction from "../../component/product-page/product-introduction";
 import ProductSpecifications from "../../component/product-page/product-specifications";
+import ProductViews from "../../component/product-page/product-views";
 
 const ProductDetail=(props)=>{    
     const dispatch=useDispatch();
@@ -73,6 +74,7 @@ const ProductDetail=(props)=>{
             </div>
             {props.introduction&&<ProductIntroduction introduction={props.introduction}/>}
             {props.specifications&&<ProductSpecifications specifications={props.specifications}/>}
+            <ProductViews/>
         </>
     )
 }

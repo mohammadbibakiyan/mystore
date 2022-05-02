@@ -60,7 +60,7 @@ const CartPage=()=>{
             </div>
             </section>}
 
-            {cart.products.length<=0&&<section>
+            {cart.products.length=0&&<section>
                 <>
                     <div className="py-3">
                         <p className="text-h5">سبد خرید شما</p>
