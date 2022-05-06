@@ -57,14 +57,14 @@ const ProductDetail=(props)=>{
                     </div>
                 </div>
             </div>
-            <div className="hidden md:flex justify-around">
+            <div className="hidden md:flex justify-around mt-5">
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/express-delivery.svg"/><p>امکان تحویل اکسپرس</p></div>
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/support.svg"/><p>24ساعته، 7 روز هفته</p></div>
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/days-return.svg"/><p>امکان پرداخت در محل</p></div>
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/original-products.svg"/><p>هفت روز ضمانت برگشت وجه</p></div>
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/cash-on-delivery.svg"/><p>ضمانت اصل بودن کالا</p></div>
             </div>
-            <div>
+            <div className="mt-10">
                 <ul className="text-body2-strong text-gray-500 flex">
                     <div className="px-4 py-2"><li>معرفی</li></div>
                     <div className="px-4 py-2"><li>مشخصات</li></div>
@@ -74,7 +74,7 @@ const ProductDetail=(props)=>{
             </div>
             {props.introduction&&<ProductIntroduction introduction={props.introduction}/>}
             {props.specifications&&<ProductSpecifications specifications={props.specifications}/>}
-            <ProductViews/>
+            <ProductViews _id={props._id} comments={props.comment}/>
         </>
     )
 }

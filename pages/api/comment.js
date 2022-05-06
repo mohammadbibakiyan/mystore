@@ -11,7 +11,7 @@ export default async function handler(req,res){
         const options = { upsert: true };
         const updateDoc = {
         $push: {
-            comment:data
+            comment:{...data,date:new Date()}
         },
         };
         await db.collection("laptop").updateOne(filter, updateDoc, options);

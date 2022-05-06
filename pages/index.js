@@ -2,11 +2,6 @@ import { useEffect } from "react";
 import Slider from "./../component/public/slider";
 
 export default function Home() {
-  useEffect(()=>{
-    fetch("/api/search",{method:"POST",body:"ایسوز",headers:{"Context-Type":"application/json"}})
-  },[])
-
-
   return (
     <div className="min-h-screen">
       <Slider items={["https://dkstatics-public.digikala.com/digikala-adservice-banners/a33c90bdb94080f97467c7be09bb38180e076c4e_1650096979.jpg?x-oss-process=image/quality,q_95","https://dkstatics-public.digikala.com/digikala-adservice-banners/c530056cb6b38c530515bf05aaaecb071b17b6af_1650368059.jpg?x-oss-process=image/quality,q_95","https://dkstatics-public.digikala.com/digikala-adservice-banners/fe9ce7ae05f4f4596b93de8397f3707e6e55914b_1650458623.jpg?x-oss-process=image/quality,q_95"]}/>

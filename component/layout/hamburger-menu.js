@@ -3,7 +3,8 @@ import { useState } from "react";
 const HamburgerMenu=()=>{
     const [show,setShow]=useState(false);
     const showHandler=()=>{
-        setShow(prev=>!prev)
+        setShow(prev=>!prev);
+        console.log(show);
     }
     const showHandler2=(e)=>{
         if(e.target===document.getElementById("overlay")){
@@ -11,8 +12,8 @@ const HamburgerMenu=()=>{
         }
     }
     return(
-        <div className="">
-            <img src="/icons/hamburger-menu.svg" onClick={showHandler}/>
+        <div>
+            <img src="/icons/hamburger-menu.svg" onClick={showHandler} className="z-50"/>
             <div id="overlay" onClick={showHandler2} className={`h-full w-full absolute right-0 top-0 ${show&&"block"} z-50 ${!show&&"hidden"}`}>
                 <div id="item" className={`max-w-xl bg-white overflow-y-scroll w-96 h-full `}>
                     <img src="/icons/logo.svg" />

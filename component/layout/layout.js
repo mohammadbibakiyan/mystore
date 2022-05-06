@@ -8,7 +8,7 @@ const Layout=(props)=>{
     const [session, loading] = useSession();
     const [inputSearchValue,setInputSearchValue]=useState("");
     return (
-        <div className="relative">
+        <>
 
             <div className="block md:hidden">
                 <HamburgerMenu/>
@@ -48,7 +48,7 @@ const Layout=(props)=>{
             </nav>
 
             {props.children}
-        </div>
+        </>
     )
 }
 

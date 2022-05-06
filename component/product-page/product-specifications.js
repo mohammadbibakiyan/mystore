@@ -10,7 +10,7 @@ const ProductSpecifications=(props)=>{
         specifications=props.specifications.slice(0,5);
     }
     return(
-        <div>
+        <div className="mt-5">
             <div className="py-5 hidden md:block"><h2 className="text-h5 text-neutral-900 inline border-0 border-b-2 border-primary-500 border-solid">مشخصات</h2></div>
             <div className="flex flex-col md:flex-row">
                 <p className="text-h5 ml-16">مشخصات</p>
