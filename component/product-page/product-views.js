@@ -2,7 +2,9 @@ import { useCallback, useRef, useState } from "react";
 import Portal  from "../layout/portal";
 
 const ProductViews = ({_id,comments}) => {
-  const rate=5;
+  const rate=comments.reduce((acc, cur) => {
+    return acc+(+cur.rate);
+  }, 0)/comments.length;
   const [show,setShow]=useState(false);
   const userName=useRef();
   const userComment=useRef();
@@ -48,10 +50,10 @@ const ProductViews = ({_id,comments}) => {
 
         <div>
           <div className="flex items-center">
-            <div className="flex relative" style={{WebkitMaskImage: "url(/icons/star.png)",maskImage:"url(/icons/star.svg)"}}>
-              <div className={`bg-icon-rating-0-2 h-8 mr-3`} style={{width:`${rate*20}px`}}></div>
+            <div className="" style={{WebkitMaskImage: "url(/icons/star.png)",maskImage:"url(/icons/star.png)", width:"100px"}}>
+              <div className={`bg-icon-rating-0-2 h-8`} style={{width:`${rate*20}px`}}></div>
             </div>
-            <p className="text-neutral-400 mr-2">6716 نفر امتیاز داده اند</p>
+            <p className="text-neutral-400 mr-2">{comments.length} نفر امتیاز داده اند</p>
           </div>
           <p className="text-neutral-400 mr-2 text-caption mt-4">شما هم درباره این کالا دیدگاه ثبت کنید</p>
           <div className="mt-5 max-w-md lg:max-w-none"><button className="primary-button-outline px-6 py-3" onClick={()=>setShow(true)}>ثبت دیدگاه</button></div>
@@ -61,9 +63,8 @@ const ProductViews = ({_id,comments}) => {
           {comments.map((e,i)=><article className="flex" key={i}>
             <div className={`bg-${getRateColor(e.rate)} text-caption-strong h-10 p-5 text-white rounded-md flex items-center justify-center ml-8`}>{e.rate}</div>
             <div className="divide-y-2 divide-solid divide-neutral-200 divide-x-0">
-              <div className="text-caption text-neutral-400 flex">
+              <div className="text-caption text-neutral-400 flex gap-12">
                 <p>{new Intl.DateTimeFormat("fa-IR", { month: "long", day: "numeric", year: "numeric" }).format(new Date(e.date))}</p>
-                <div className="w-7 h-7"></div>
                 <p>{e.name}</p>
               </div>
               <p className="text-body-1 pt-3 mb-1">{e.comment}</p>

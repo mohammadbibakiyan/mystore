@@ -41,7 +41,7 @@ const Slider=(props)=>{
             </div>
 
             <div className="flex slides overflow-hidden">
-                {props.items.map(e=><img src={e}/>)}
+                {props.items.map((e,i)=><img src={e} key={i}/>)}
             </div>
 
             <div className="absolute transform top-3/4 right-28  rotate-180 hidden w-16 h-16 md:flex justify-center items-center pointer-cursor rounded-full  bg-white" onClick={next}>
@@ -49,7 +49,7 @@ const Slider=(props)=>{
             </div>
 
             <div className="absolute bottom-0 transform right-16 dots ">
-                {props.items.map((e,i)=><span></span>)}
+                {props.items.map((e,i)=><span key={i}></span>)}
             </div>
         </div>
     )

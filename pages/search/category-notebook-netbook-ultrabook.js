@@ -18,11 +18,8 @@ export default ProductPage;
 export async function getStaticProps(){
     const client=await connectToDatabase();
     const db=client.db();
-    let result=await db.collection("laptop").find().toArray();
+    let result=await db.collection("laptop").find({}).toArray();
     result=JSON.parse(JSON.stringify(result));
-    console.log(
-      result
-    );
     return{
         props:{
             items:result

@@ -7,9 +7,14 @@ import { addToCart } from "../../store/slice/cart-slice";
 import ProductIntroduction from "../../component/product-page/product-introduction";
 import ProductSpecifications from "../../component/product-page/product-specifications";
 import ProductViews from "../../component/product-page/product-views";
+import ProductQuestion from "../../component/product-page/product-question";
 
 const ProductDetail=(props)=>{    
     const dispatch=useDispatch();
+    const rate=(props.comment.reduce((acc, cur) => {
+        return acc+(+cur.rate)
+    }, 0)/props.comment.length).toFixed(1);
+    
     return(
         <>
             <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-5"> 
@@ -19,16 +24,16 @@ const ProductDetail=(props)=>{
                     <div className="grid grid-cols-1 lg:grid-cols-3 px-0 lg:pr-5">
                         <div className="col-span-2 order-2 lg:order-1">{/* Product Description  */}
                             <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title_alt}</span></div>
-                            <div className="flex text-body-2">{/* rate section */}
-                                <div>4.2</div>
-                                <div className="text-secondary-700">143 دیدگاه</div>
-                                <div className="text-secondary-700">187 پرسش</div>
+                            <div className="flex text-body-2 gap-6">{/* rate section */}
+                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate}</p><p className="text-neutral-300 text-caption">({props.comment.length})</p></div>
+                                <div className="text-secondary-700">{props.comment.length} دیدگاه</div>
+                                <div className="text-secondary-700">0 پرسش</div>
                             </div>
                             
                             <div>{/* product feature */}
                                 <ul>
                                     <div className="text-h4">ویژگی ها</div>
-                                    {props.product_attributes.map((e,i)=><li className="flex" key={i}><p className="text-body-1 text-neutral-500 ml-2">{e[0]}:</p><p className="text-body1-strong">{e[1]}</p></li>)}
+                                    {props.product_attributes.map((e,i)=><li className="flex items-center" key={i}><p className="text-body-1 text-neutral-500 ml-2">&#9900; {e[0]}:</p><p className="text-body1-strong">{e[1]}</p></li>)}
                                 </ul>
                             </div>
                         </div>
@@ -64,8 +69,8 @@ const ProductDetail=(props)=>{
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/original-products.svg"/><p>هفت روز ضمانت برگشت وجه</p></div>
                 <div className="flex items-center text-caption-strong text-neutral-400"><img className="ml-2" src="/icons/cash-on-delivery.svg"/><p>ضمانت اصل بودن کالا</p></div>
             </div>
-            <div className="mt-10">
-                <ul className="text-body2-strong text-gray-500 flex">
+            <div className="mt-10 sticky top-0 bg-white z-10 border-b border-solid border-0 border-neutral-500">
+                <ul className="text-body2-strong text-neutral-500 flex">
                     <div className="px-4 py-2"><li>معرفی</li></div>
                     <div className="px-4 py-2"><li>مشخصات</li></div>
                     <div className="px-4 py-2"><li>دیدگاه ها</li></div>
@@ -75,6 +80,7 @@ const ProductDetail=(props)=>{
             {props.introduction&&<ProductIntroduction introduction={props.introduction}/>}
             {props.specifications&&<ProductSpecifications specifications={props.specifications}/>}
             <ProductViews _id={props._id} comments={props.comment}/>
+            <ProductQuestion/>
         </>
     )
 }

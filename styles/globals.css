@@ -20,6 +20,7 @@ html{
 }
 
 body {
+  padding:0 10px;
   direction: rtl;
   font-family:IranSans;
   position: relative;
@@ -43,7 +44,6 @@ input[type=text],input[type="password"]{
   color: var(--color-neutral-700);
   font-size: 1.3rem;
   font-weight: 400;
-  line-height: 2.15px;
   border-radius: var(--medium-radius);
   background-color: var(--color-neutral-200);
 }
@@ -59,7 +59,7 @@ textarea{
   color: var(--color-neutral-700);
   font-size: 1.3rem;
   font-weight: 400;
-  line-height: 2.15px;
+  /* line-height: 2.15px; */
   border-radius: var(--medium-radius);
   background-color: var(--color-neutral-200);
 }

@@ -32,7 +32,7 @@ const Layout=(props)=>{
             </div>
 
             <nav>
-                <div className="flex justify-between items-center p-5">
+                <div className="flex justify-between items-center py-5">
                     <div className="hidden md:block">
                         <ul className="flex gap-8 items-center text-body-2">
                             <li className="text-body1-strong"><Link href="/search/category-notebook-netbook-ultrabook">دسته بندی کالا ها</Link></li>
