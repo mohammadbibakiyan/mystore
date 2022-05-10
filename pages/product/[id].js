@@ -11,9 +11,9 @@ import ProductQuestion from "../../component/product-page/product-question";
 
 const ProductDetail=(props)=>{    
     const dispatch=useDispatch();
-    const rate=(props.comment.reduce((acc, cur) => {
+    const rate=(props.comments.reduce((acc, cur) => {
         return acc+(+cur.rate)
-    }, 0)/props.comment.length).toFixed(1);
+    }, 0)/props.comments.length).toFixed(1);
     
     return(
         <>
@@ -25,8 +25,8 @@ const ProductDetail=(props)=>{
                         <div className="col-span-2 order-2 lg:order-1">{/* Product Description  */}
                             <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title_alt}</span></div>
                             <div className="flex text-body-2 gap-6">{/* rate section */}
-                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate}</p><p className="text-neutral-300 text-caption">({props.comment.length})</p></div>
-                                <div className="text-secondary-700">{props.comment.length} دیدگاه</div>
+                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate}</p><p className="text-neutral-300 text-caption">({props.comments.length})</p></div>
+                                <div className="text-secondary-700">{props.comments.length} دیدگاه</div>
                                 <div className="text-secondary-700">0 پرسش</div>
                             </div>
                             
@@ -79,8 +79,8 @@ const ProductDetail=(props)=>{
             </div>
             {props.introduction&&<ProductIntroduction introduction={props.introduction}/>}
             {props.specifications&&<ProductSpecifications specifications={props.specifications}/>}
-            <ProductViews _id={props._id} comments={props.comment}/>
-            <ProductQuestion/>
+            <ProductViews _id={props._id} comments={props.comments}/>
+            <ProductQuestion _id={props._id} questions={props.questions}/>
         </>
     )
 }

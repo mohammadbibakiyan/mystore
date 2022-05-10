@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Portal  from "../layout/portal";
 
 const ProductViews = ({_id,comments}) => {
@@ -14,7 +14,7 @@ const ProductViews = ({_id,comments}) => {
     const name=userName.current.value;
     const comment=userComment.current.value;
     const rate=userRate.current.value;
-    fetch("/api/comment",{method:"POST",body:JSON.stringify({name,comment,rate,_id}),headers:{"Content-Type":"Application/json"}}).then((e)=>{
+    fetch("/api/product-comment",{method:"POST",body:JSON.stringify({name,comment,rate,_id}),headers:{"Content-Type":"Application/json"}}).then((e)=>{
       setShow(false);
     })
   }
@@ -74,7 +74,7 @@ const ProductViews = ({_id,comments}) => {
 
       </div>
 
-      {show&&<Portal>
+      {show&&<Portal className="w-full md:w-1/2" closeHandler={()=>setShow(false)}>
         <div className="flex justify-between"><p className="text-h5">دیدگاه شما</p><img src="/icons/close.svg" className="cursor-pointer" onClick={()=>setShow(false)}/></div>
         <p className="text-neutral-500 text-body-2">در مورد سرویس پخت و پز 5 پارچه مدل basic</p>
         
@@ -94,7 +94,6 @@ const ProductViews = ({_id,comments}) => {
           </div>
           <button className="primary-button mt-16" onClick={submitViewHandler}>ثبت دیدگاه</button>
         </form>
-        
       </Portal>}
     </div>
   );
