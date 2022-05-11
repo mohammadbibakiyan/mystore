@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Portal  from "../layout/portal";
 
-const ProductViews = ({_id,comments}) => {
+const ProductViews = ({_id,comments=[]}) => {
   const rate=comments.reduce((acc, cur) => {
     return acc+(+cur.rate);
   }, 0)/comments.length;
@@ -9,12 +9,14 @@ const ProductViews = ({_id,comments}) => {
   const userName=useRef();
   const userComment=useRef();
   const userRate=useRef();
+
   const submitViewHandler=(e)=>{
     e.preventDefault();
+    console.log("submit comment");
     const name=userName.current.value;
     const comment=userComment.current.value;
     const rate=userRate.current.value;
-    fetch("/api/product-comment",{method:"POST",body:JSON.stringify({name,comment,rate,_id}),headers:{"Content-Type":"Application/json"}}).then((e)=>{
+    fetch(`/api/v1/comments/${_id}/submit`,{method:"POST",body:JSON.stringify({name,comment,rate}),headers:{"Content-Type":"Application/json"}}).then((e)=>{
       setShow(false);
     })
   }

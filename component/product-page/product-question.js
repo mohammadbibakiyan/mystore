@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import Portal  from "../layout/portal";
 
-const ProductQuestion=({_id,questions})=>{
-    const [show,setShow]=useState(false);
+const ProductQuestion=({_id,questions=[]})=>{
+    const [showQuestionBox,setShowQuestionBox]=useState(false);
+    const [showAnswerBox,setShowAnswerBox]=useState(false);
     const [question,setQuestion]=useState("");
+    const [answer,setAnswer]=useState("")
+    const submitAnswerHandler=(_id)=>{
+      fetch(`/api/v1/questions/${_id}/answer/add`,{method:"POST",headers:{"Content-Type":"application.json"},body:JSON.stringify(answer)}).then(()=>{setShowAnswerBox(false);setAnswer("")})
+    }
     const submitQuestionHandler=()=>{
       if(question.length<=3) return;
-      fetch("/api/product-question",{method:"POST",body:JSON.stringify({question,_id}),headers:{"Content-Type":'application/json'}}).then(()=>setShow(false))
+      fetch(`/api/v1/products/${_id}/questions/add`,{method:"POST",body:JSON.stringify({question}),headers:{"Content-Type":'application/json'}}).then(()=>{setShowQuestionBox(false);setAnswer("")})
     }
     return(
       <div className="mt-5">
@@ -16,33 +21,45 @@ const ProductQuestion=({_id,questions})=>{
   
           <div>
             <p className="text-neutral-400 mr-2 text-caption mt-4">شما هم درباره این کالا پرسش ثبت کنید</p>
-            <div className="mt-5 max-w-md lg:max-w-none"><button className="primary-button-outline px-6 py-3" onClick={()=>setShow(true)}>ثبت پرسش</button></div>
+            <div className="mt-5 max-w-md lg:max-w-none"><button className="primary-button-outline px-6 py-3" onClick={()=>setShowQuestionBox(true)}>ثبت پرسش</button></div>
           </div>
   
           <div className="lg:col-span-3  mt-8 lg:m-0 pr-5 flex flex-col gap-10">
-            {questions.map((e,i)=><article key={i}>
+            {questions.map((e,i)=><article key={e._id}>
               <div className="flex"><span><img src="/icons/question.svg" className="w-10"/></span><p className="text-subtitle">{e.question}</p></div>
-              <div className="mt-4 mr-10"><button className="text-button-secondary text-button-2">ثبت پاسخ &#62;</button></div>
+              {e.answers?.map(e=><div key={e._id}><div className="mt-4 text-neutral-600 flex items-center"><p className="text-caption ml-4">پاسخ</p><p className="text-body-1">{e.answer}</p></div><div className="mr-10"></div></div>)}
+              <div className="mt-4 mr-10"><button className="text-button-secondary text-button-2" onClick={()=>setShowAnswerBox(e._id)}>{e.answers?.length>0?"ثبت پاسخ جدید":"ثبت پاسخ "} &#62;</button></div>
             </article>)}
-            {/* <article> //whit answer
-              <div className="flex"><span><img src="/icons/question.svg" className="w-10"/></span><p className="text-subtitle">Ssd رو ننوشتید که چند هست؟</p></div>
-              <div><div className="mt-4 text-neutral-600 flex"><p className="text-caption ml-4">پاسخ</p><p className="text-body-1">فقظ یک ترابایت ssd داره و hdd نداره</p></div><div className="mr-10"><p className="text-caption text-neutral-400">حسین مقری</p></div></div>
-              <div className="mt-4 mr-10"><button className="text-button-secondary text-button-2">ثبت پاسخ جدید &#62;</button></div>
-            </article> */}
           </div>
   
         </div>
 
-        {show&&<Portal className="w-full md:w-1/2" closeHandler={()=>setShow(false)}>
-          <div className="flex justify-between"><p className="text-h5 py-3">پرسش خود را درباره این کالا مطرح کنید</p><img src="/icons/close.svg" className="cursor-pointer" onClick={()=>setShow(false)}/></div>
-          <form>
+        {showQuestionBox&&<Portal className="w-full md:w-1/2" closeHandler={()=>setShowQuestionBox(false)}>
+          <div className="flex justify-between"><p className="text-h5 py-3">پرسش خود را درباره این کالا مطرح کنید</p><img src="/icons/close.svg" className="cursor-pointer" onClick={()=>setShowQuestionBox(false)}/></div>
+          <div>
             <textarea className="px-5 py-4" maxLength="100" value={question} onChange={e=>{setQuestion(e.target.value)}}></textarea>
-          </form>       
-          <div className="text-neutral-400 text-body-2 text-left">100/{question.length}</div>
+            <div className="text-neutral-400 text-body-2 text-left">100/{question.length}</div>
+          </div>       
           <div>
             <button className="primary-button mt-16" onClick={submitQuestionHandler}>ثبت پرسش</button>
             <p className="text-center mt-2">ثبت پاسخ به معنی موافقت باقوانین سایت است.</p>
           </div> 
+        </Portal>}
+
+        {showAnswerBox&&<Portal className="w-full md:w-1/2" closeHandler={()=>setShowAnswerBox(false)}>
+            <div className="flex justify-between"><p className="text-h5">به این پرسش پاسخ دهید</p><img src="/icons/close.svg" className="cursor-pointer" onClick={()=>setShowAnswerBox(false)}/></div>
+            <div className="py-4">
+              <p className="text-body-1 mb-4">تفاوت این دو مدل دقیقا چی هست؟</p>
+              <div>
+                <label className="text-body-1 text-neutral-700 mb-2 mr-4">پاسخ</label>
+                <textarea maxLength="500" value={answer} onChange={(e)=>{setAnswer(e.target.value)}}></textarea>
+                <div className="text-neutral-400 text-body-2 text-left">500/{answer.length}</div>
+              </div>
+            </div>
+            <div className="flex py-4">
+              <button className="primary-button ml-4" onClick={()=>submitAnswerHandler(showAnswerBox)}>ثبت پاسخ</button>
+              <p className="text-center"> ثبت پاسخ به معنی موافقت باقوانین انتشار سایت است. </p>
+            </div>
         </Portal>}
       </div>
     )

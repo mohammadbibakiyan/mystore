@@ -11,10 +11,10 @@ import ProductQuestion from "../../component/product-page/product-question";
 
 const ProductDetail=(props)=>{    
     const dispatch=useDispatch();
-    const rate=(props.comments.reduce((acc, cur) => {
+    let rate=(props.comments.reduce((acc, cur) => {
         return acc+(+cur.rate)
     }, 0)/props.comments.length).toFixed(1);
-    
+    if(isNaN(rate)) rate=0;
     return(
         <>
             <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-5"> 
@@ -25,9 +25,9 @@ const ProductDetail=(props)=>{
                         <div className="col-span-2 order-2 lg:order-1">{/* Product Description  */}
                             <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title_alt}</span></div>
                             <div className="flex text-body-2 gap-6">{/* rate section */}
-                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate}</p><p className="text-neutral-300 text-caption">({props.comments.length})</p></div>
+                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate?rate:0}</p><p className="text-neutral-300 text-caption">({props.comments.length})</p></div>
                                 <div className="text-secondary-700">{props.comments.length} دیدگاه</div>
-                                <div className="text-secondary-700">0 پرسش</div>
+                                <div className="text-secondary-700">{props.questions.length} پرسش</div>
                             </div>
                             
                             <div>{/* product feature */}
