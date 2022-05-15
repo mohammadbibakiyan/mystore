@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/client';
 import {useState} from "react";
 import HamburgerMenu from "./hamburger-menu";
 import ProfileButton from "./profile-button";
+import Footer from "./footer";
 
 const Layout=(props)=>{
     const [session, loading] = useSession();
@@ -48,6 +49,8 @@ const Layout=(props)=>{
             </nav>
 
             {props.children}
+
+            <Footer/>
         </>
     )
 }
