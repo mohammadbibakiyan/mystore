@@ -58,7 +58,7 @@ const ProductDetail=(props)=>{
                                 </div>
                                 <div className="flex">
                                     <div><span className="text-caption">قیمت فروشنده</span></div>
-                                    <div className="mr-auto"><span className="text-h5">{props.price}</span></div>
+                                    <div className="mr-auto"><span className="text-h5">{props.price.toLocaleString()}</span></div>
                                 </div>
                                 {indexProductInCart<0&&<button className="primary-button" onClick={()=>dispatch(addToCart({...props,quantity:1}))}>افزودن به سبد</button>}
                                 {indexProductInCart>-1&&<div className="flex items-center">

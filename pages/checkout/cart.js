@@ -45,7 +45,7 @@ const CartPage=()=>{
                         <span>{e.quantity}</span>
                         <button onClick={()=>dispatch(removeFromCart({...e,quantity:1}))}>-</button>
                     </div>
-                    <div className="col-span-5 text-h5"><span>قیمت</span><span>{e.price} تومان</span></div>
+                    <div className="col-span-5 text-h5"><span>قیمت</span><span>{e.price.toLocaleString()} تومان</span></div>
                 </div>)}
                 
             </div>
@@ -53,7 +53,7 @@ const CartPage=()=>{
                 <div className="card p-5">
                     <div className="flex justify-between">
                         <p className="text-body2-strong">جمع سبد خرید</p>
-                        <p className="text-subtitle-strong">{cart.totalPrice} تومان</p>
+                        <p className="text-subtitle-strong">{cart.totalPrice.toLocaleString()} تومان</p>
                     </div>
                     <p className="text-caption">هزینه ارسال براساس آدرس، زمان تحویل، وزن و حجم مرسوله شما محاسبه می‌شود</p>
                     <button className="primary-button">ادامه</button>
