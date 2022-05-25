@@ -3,9 +3,14 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: IranSans;
+  font-family:IranSans;
   src: url(./../font/IRANSansWeb.ttf);
 } 
+@font-face {
+	font-family: IranYekan;
+	src: url('./../font/iranyekanweblight.ttf');
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 8px;
@@ -43,7 +48,7 @@ html{
 body {
   padding:0 10px;
   direction: rtl;
-  font-family:IranSans;
+  font-family:IranYekan;
   position: relative;
 }
 
