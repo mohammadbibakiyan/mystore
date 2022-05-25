@@ -5,6 +5,7 @@ import { addToCart,removeFromCart } from "../../store/slice/cart-slice";
 
 const CartPage=()=>{
     const cart=useSelector(state=>state.cart);
+    console.log(cart);
     const dispatch=useDispatch();
 
     return(
@@ -16,7 +17,7 @@ const CartPage=()=>{
                     <p className="text-body-2 text-gray-500">{cart.products.length} کالا</p>
                 </div>
             
-                {cart.products.map(e=><div className="grid grid-cols-6 gap-10 my-5">
+                {cart.products.map((e)=><div key={e._id} className="grid grid-cols-6 gap-10 my-5">
                     <div ><img src={e.product_image.cover}/></div>
                     <div className="col-span-5">
                         <h3 className="text-body1-strong mb-10">{e.title}</h3>

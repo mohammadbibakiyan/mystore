@@ -1,8 +1,10 @@
 import { ObjectId } from "mongodb";
 import { connectToDatabase } from "../../lib/db";
-
+import Link from 'next/link'
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../store/slice/cart-slice";
+import { useSelector } from "react-redux";
+
+import { addToCart,removeFromCart } from "../../store/slice/cart-slice";
 
 import ProductIntroduction from "../../component/product-page/product-introduction";
 import ProductSpecifications from "../../component/product-page/product-specifications";
@@ -10,10 +12,12 @@ import ProductViews from "../../component/product-page/product-views";
 import ProductQuestion from "../../component/product-page/product-question";
 
 const ProductDetail=(props)=>{    
+    const cart=useSelector(state=>state.cart);
+    const indexProductInCart=cart.products.findIndex(e=>e._id===props._id);
     const dispatch=useDispatch();
     let rate=(props.comments.reduce((acc, cur) => {
         return acc+(+cur.rate)
-    }, 0)/props.comments.length).toFixed(1);
+    }, 0)/props.comments?.length).toFixed(1);
     if(isNaN(rate)) rate=0;
     return(
         <>
@@ -25,9 +29,9 @@ const ProductDetail=(props)=>{
                         <div className="col-span-2 order-2 lg:order-1">{/* Product Description  */}
                             <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title_alt}</span></div>
                             <div className="flex text-body-2 gap-6">{/* rate section */}
-                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate?rate:0}</p><p className="text-neutral-300 text-caption">({props.comments.length})</p></div>
-                                <div className="text-secondary-700">{props.comments.length} دیدگاه</div>
-                                <div className="text-secondary-700">{props.questions.length} پرسش</div>
+                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate?rate:0}</p><p className="text-neutral-300 text-caption">({props.comments?.length})</p></div>
+                                <div className="text-secondary-700">{props.comments?.length} دیدگاه</div>
+                                <div className="text-secondary-700">{props.questions?.length} پرسش</div>
                             </div>
                             
                             <div>{/* product feature */}
@@ -56,7 +60,20 @@ const ProductDetail=(props)=>{
                                     <div><span className="text-caption">قیمت فروشنده</span></div>
                                     <div className="mr-auto"><span className="text-h5">{props.price}</span></div>
                                 </div>
-                                <button className="primary-button" onClick={()=>dispatch(addToCart({...props,quantity:1}))}>افزودن به سبد</button>
+                                {indexProductInCart<0&&<button className="primary-button" onClick={()=>dispatch(addToCart({...props,quantity:1}))}>افزودن به سبد</button>}
+                                {indexProductInCart>-1&&<div className="flex items-center">
+                                    <div className="w-32 h-16 text-h5 text-primary-500 flex justify-evenly border border-solid border-gray-300 rounded-2xl">
+                                        <button onClick={()=>dispatch(addToCart({_id:props._id,quantity:1}))}>+</button>
+                                        <span>{cart.products[indexProductInCart].quantity}</span>
+                                        <button onClick={()=>dispatch(removeFromCart({_id:props._id,quantity:1}))}>-</button>
+                                    </div>
+                                    <div className="mr-6">
+                                        <p className="text-neutral-700 text-body-1">در سبد شما</p>
+                                        <div >مشاهده <Link  href="/checkout/cart/"><a className="text-secondary-500 mr-1 text-body-2">سبد خرید</a></Link>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { useSession } from 'next-auth/client';
 import {useState} from "react";
+import { useSelector } from "react-redux";
+
 import HamburgerMenu from "./hamburger-menu";
 import ProfileButton from "./profile-button";
 import Footer from "./footer";
 
+
 const Layout=(props)=>{
+    const cart=useSelector(state=>state.cart);
     const [session, loading] = useSession();
     const [inputSearchValue,setInputSearchValue]=useState("");
     return (
@@ -28,7 +32,7 @@ const Layout=(props)=>{
                 <div className="flex gap-5">
                     {!session&&<Link href="/users/login"><a className="hover:cursor-pointer"><img src="/icons/login.svg"/></a></Link>}
                     {session&&<ProfileButton/>}
-                    <Link href="/checkout/cart"><a className="hover:cursor-pointer"><img src="/icons/shopping-cart.svg"/></a></Link>
+                    <Link href="/checkout/cart"><a className="hover:cursor-pointer relative"><img src="/icons/shopping-cart.svg" />{cart.products.length>0&&<span className="absolute -right-3 top-5 w-7 h-7 flex justify-center items-end rounded-lg bg-primary-700 text-white">{cart.products.length}</span>}</a></Link>
                 </div> 
             </div>
 
@@ -36,15 +40,13 @@ const Layout=(props)=>{
                 <div className="flex justify-between items-center py-5">
                     <div className="hidden md:block">
                         <ul className="flex gap-8 items-center text-body-2">
-                            <li className="text-body1-strong"><Link href="/search/category-notebook-netbook-ultrabook">دسته بندی کالا ها</Link></li>
+                            <li className="text-body1-strong cursor-pointer"><Link href="/search/category-notebook-netbook-ultrabook"><div className="flex"><img src="/icons/hamburger-menu.svg" className="w-6"/>دسته بندی کالا ها</div></Link></li>
                             <li className="hover:text-primary-500"><Link href="/">پرفروش ترین ها</Link></li>
                             <li className="hover:text-primary-500"><Link href="/">تخفیف ها و پیشنهادها</Link></li>
                             <li className="hover:text-primary-500"><Link href="/">شگفت انگیزها</Link></li>
                             <li className="hover:text-primary-500"><Link href="/">سوالی دارید</Link></li>
                         </ul>
-                    </div>
-
-                    
+                    </div> 
                 </div>
             </nav>
 
