@@ -5,9 +5,7 @@ import { addToCart,removeFromCart } from "../../store/slice/cart-slice";
 
 const CartPage=()=>{
     const cart=useSelector(state=>state.cart);
-    console.log(cart);
     const dispatch=useDispatch();
-
     return(
         <>
             {cart.products.length>0&&<section className="grid grid-cols-12 gap-3 p-5">
@@ -41,21 +39,32 @@ const CartPage=()=>{
                         </div>
                     </div>
                     <div className="text-h5 text-primary-500 flex justify-evenly border border-solid border-gray-300 rounded-2xl">
-                        <button onClick={()=>dispatch(addToCart({...e,quantity:1}))}>+</button>
+                        <button onClick={()=>dispatch(addToCart({_id:e._id}))}>+</button>
                         <span>{e.quantity}</span>
-                        <button onClick={()=>dispatch(removeFromCart({...e,quantity:1}))}>-</button>
+                        <button onClick={()=>dispatch(removeFromCart({_id:e._id}))}>-</button>
                     </div>
-                    <div className="col-span-5 text-h5"><span>قیمت</span><span>{e.price.toLocaleString()} تومان</span></div>
+                    <div className="col-span-5">
+                        {e.price.discount>0&&<div className="text-primary-700"><span>{(e.price.original*e.price.discount/100).toLocaleString()}</span><span>تومان تخفیف</span></div>}
+                        <div className="text-h5"><span>قیمت</span><span>{((e.price.original)-(e.price.original*e.price.discount/100)).toLocaleString()} تومان</span></div>
+                    </div>
                 </div>)}
                 
             </div>
             <div className="col-span-12 lg:col-span-3">
                 <div className="card p-5">
                     <div className="flex justify-between">
+                        <p className="text-body2-strong">قیمت کالاها({cart.products.length})</p>
+                        <p className="text-subtitle-strong">{cart.originalPrice.toLocaleString()} تومان</p>
+                    </div>
+                    <div className="flex justify-between">
                         <p className="text-body2-strong">جمع سبد خرید</p>
-                        <p className="text-subtitle-strong">{cart.totalPrice.toLocaleString()} تومان</p>
+                        <p className="text-subtitle-strong">{((cart.originalPrice)-(cart.discountPrice)).toLocaleString()} تومان</p>
                     </div>
                     <p className="text-caption">هزینه ارسال براساس آدرس، زمان تحویل، وزن و حجم مرسوله شما محاسبه می‌شود</p>
+                    {cart.discountPrice>0&&<div className="flex justify-between text-primary-700">
+                        <p className="text-body2-strong">سود شما از خرید</p>
+                        <p className="text-subtitle-strong">{cart.discountPrice.toLocaleString()} تومان</p>
+                    </div>}
                     <button className="primary-button">ادامه</button>
                 </div>
             </div>

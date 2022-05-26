@@ -18,8 +18,7 @@ export default ProductPage;
 export async function getStaticProps(){
     const client=await connectToDatabase();
     const db=client.db();
-    let result=await db.collection("laptop").find({},{"price":1,"_id":1,"title":1,"product-image":1}).toArray();
-    
+    let result=await db.collection("laptop").aggregate([{$project:{_id:1,title:1,"product_image.cover":1,alt:1,price:1,"comments.rate":1}}]).toArray();
     result=JSON.parse(JSON.stringify(result));
     return{
         props:{

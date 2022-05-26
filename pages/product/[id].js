@@ -21,7 +21,7 @@ const ProductDetail=(props)=>{
     if(isNaN(rate)) rate=0;
     return(
         <>
-            <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-5"> 
+            <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-5">
                 <div><img src={props.product_image.cover} alt={props.title_alt}/></div>
                 <div className="lg:col-span-2">
                     <div><h1 className="text-h4 px-5">{props.title}</h1></div>
@@ -56,16 +56,22 @@ const ProductDetail=(props)=>{
                                     <div className="ml-5"><img src="/icons/check.svg"/></div>
                                     <div className="flex-1"><p className="text-subtitle-strong">موجود در انبار دیجی من</p></div>
                                 </div>
-                                <div className="flex">
-                                    <div><span className="text-caption">قیمت فروشنده</span></div>
-                                    <div className="mr-auto"><span className="text-h5">{props.price.toLocaleString()}</span></div>
+                                <div className="flex items-center justify-between">
+                                    <div><span className="text-caption line">قیمت فروشنده</span></div>
+                                    <div>
+                                        {props.price.discount>0&&<div className="flex items-center gap-4">
+                                            <div className="line-through">{(props.price.original).toLocaleString()}</div>
+                                            <div className="px-1 text-white bg-primary-700 text-body2-strong flex justify-center items-center rounded-full w-14 h-8">{props.price.discount}%</div>
+                                        </div>}
+                                        <div className="text-left"><span className="text-h5">{((props.price.original)-(props.price.original*props.price.discount/100)).toLocaleString()}</span><span>تومان</span></div>
+                                    </div>
                                 </div>
-                                {indexProductInCart<0&&<button className="primary-button" onClick={()=>dispatch(addToCart({...props,quantity:1}))}>افزودن به سبد</button>}
+                                {indexProductInCart<0&&<button className="primary-button" onClick={()=>dispatch(addToCart({...props}))}>افزودن به سبد</button>}
                                 {indexProductInCart>-1&&<div className="flex items-center">
                                     <div className="w-32 h-16 text-h5 text-primary-500 flex justify-evenly border border-solid border-gray-300 rounded-2xl">
-                                        <button onClick={()=>dispatch(addToCart({_id:props._id,quantity:1}))}>+</button>
+                                        <button onClick={()=>dispatch(addToCart({_id:props._id}))}>+</button>
                                         <span>{cart.products[indexProductInCart].quantity}</span>
-                                        <button onClick={()=>dispatch(removeFromCart({_id:props._id,quantity:1}))}>-</button>
+                                        <button onClick={()=>dispatch(removeFromCart({_id:props._id}))}>-</button>
                                     </div>
                                     <div className="mr-6">
                                         <p className="text-neutral-700 text-body-1">در سبد شما</p>
