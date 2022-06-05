@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import Slider from "./../component/public/slider";
+import ProductSlider from "../component/product-slider";
+
 
 export default function Home() {
   return (
@@ -42,37 +44,7 @@ export default function Home() {
             <span>بیشتر</span>
           </div>
         </div>
-        <div className="bg-primary-700 lg:rounded-3xl mt-10 flex gap-2 p-3 overflow-x-scroll scrollbar-hide">
-          <div className="h-80 min-w-80"><img src="/images/home/amazing-typo.svg" className="w-28"/><img src="/images/home/general.png" className="w-52"/></div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-          <div className="h-80 min-w-80 flex flex-col items-center justify-center bg-white">
-            <img src="/images/home/1.jpg" className="w-52"/>
-            <div><span>9199000 تومان</span></div>
-          </div>
-        </div>
+        <ProductSlider/>
       </div>
     </div>
   )
