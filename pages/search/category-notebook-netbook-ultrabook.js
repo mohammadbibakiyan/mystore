@@ -1,7 +1,6 @@
 import Filter from "../../component/product-page/filter"
 import ProductList from "../../component/product-page/product-list";
-
-import {connectToDatabase} from "./../../lib/db";
+// import fetch from 'node-fetch';
 
 const ProductPage = (props) => {
   return (
@@ -14,15 +13,12 @@ const ProductPage = (props) => {
 
 export default ProductPage;
 
-
 export async function getStaticProps(){
-    const client=await connectToDatabase();
-    const db=client.db();
-    let result=await db.collection("laptop").aggregate([{$project:{_id:1,title:1,"product_image.cover":1,alt:1,price:1,"comments.rate":1}}]).toArray();
-    result=JSON.parse(JSON.stringify(result));
+    const items=await fetch("http://127.0.0.1:3080/api/v1/products");
+    const jsonItems=await items.json();
     return{
         props:{
-            items:result
+            items:jsonItems.data
         }
     }
 }

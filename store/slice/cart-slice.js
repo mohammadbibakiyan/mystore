@@ -9,20 +9,20 @@ const cartSlice=createSlice({
             if(existIndex!==-1){
                 //درون سبد خرید وجود دارد
                 state.products[existIndex].quantity+=1;
-                state.originalPrice+=state.products[existIndex].price.original;
-                state.discountPrice+=((state.products[existIndex].price.original)*(state.products[existIndex].price.discount))/100;
+                state.originalPrice+=state.products[existIndex].price;
+                state.discountPrice+=((state.products[existIndex].price)*(state.products[existIndex].priceDiscount))/100;
             }else{
                 //در سبد خرید موجود نیست
                 state.products=state.products.concat({...action.payload,quantity:1});
-                state.originalPrice+=action.payload.price.original;
-                state.discountPrice+=((action.payload.price.original)*(action.payload.price.discount))/100;
+                state.originalPrice+=action.payload.price;
+                state.discountPrice+=((action.payload.price)*(action.payload.priceDiscount))/100;
             }
 
         },
         removeFromCart(state,action){
             const existIndex=state.products.findIndex(e=>action.payload._id===e._id);
-            state.originalPrice-=state.products[existIndex].price.original;
-            state.discountPrice-=((state.products[existIndex].price.original)*(state.products[existIndex].price.discount))/100;
+            state.originalPrice-=state.products[existIndex].price;
+            state.discountPrice-=((state.products[existIndex].price)*(state.products[existIndex].priceDiscount))/100;
             if(state.products[existIndex].quantity<=1){
                 // مقدار محصولی که نیاز است کم شود بیشتر از موجودی سبد خرید است محصول حذف می شود
                 state.products=state.products.filter(e=>e._id!==state.products[existIndex]._id);

@@ -16,7 +16,7 @@ const CartPage=()=>{
                 </div>
             
                 {cart.products.map((e)=><div key={e._id} className="grid grid-cols-6 gap-10 my-5">
-                    <div ><img src={e.product_image.cover}/></div>
+                    <div ><img src={e.imageCover}/></div>
                     <div className="col-span-5">
                         <h3 className="text-body1-strong mb-10">{e.title}</h3>
                         <div className="text-neutral-500 text-body-2 flex flex-col gap-5">
@@ -26,7 +26,7 @@ const CartPage=()=>{
                             </div>
                             <div className="flex items-center">
                                 <div className="ml-3"><img src="/icons/store.svg" className="w-7"/></div>
-                                <p >{e.seller}</p>
+                                <p >دیجی من</p>
                             </div>
                             <div className="flex items-center">
                                 <div className="ml-3"><img src="/icons/check.svg" className="w-7"/></div>
@@ -44,8 +44,8 @@ const CartPage=()=>{
                         <button onClick={()=>dispatch(removeFromCart({_id:e._id}))}>-</button>
                     </div>
                     <div className="col-span-5">
-                        {e.price.discount>0&&<div className="text-primary-700"><span>{(e.price.original*e.price.discount/100).toLocaleString()}</span><span>تومان تخفیف</span></div>}
-                        <div className="text-h5"><span>قیمت</span><span>{((e.price.original)-(e.price.original*e.price.discount/100)).toLocaleString()} تومان</span></div>
+                        {e.priceDiscount>0&&<div className="text-primary-700"><span>{(e.price*e.priceDiscount/100).toLocaleString()}</span><span>تومان تخفیف</span></div>}
+                        <div className="text-h5"><span>قیمت</span><span>{((e.price)-(e.price*e.priceDiscount/100)).toLocaleString()} تومان</span></div>
                     </div>
                 </div>)}
                 

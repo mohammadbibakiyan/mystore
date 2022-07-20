@@ -5,7 +5,6 @@ const Portal= (props) => {
    const [mounted, setMounted] = useState(false);
    useEffect(() => {
       setMounted(true)
-
       return () => setMounted(false)
    }, [])
 

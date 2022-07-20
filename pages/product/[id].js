@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-import { connectToDatabase } from "../../lib/db";
 import Link from 'next/link'
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -11,25 +9,21 @@ import ProductSpecifications from "../../component/product-page/product-specific
 import ProductViews from "../../component/product-page/product-views";
 import ProductQuestion from "../../component/product-page/product-question";
 
-const ProductDetail=(props)=>{    
+const ProductDetail=(props)=>{  
     const cart=useSelector(state=>state.cart);
     const indexProductInCart=cart.products.findIndex(e=>e._id===props._id);
     const dispatch=useDispatch();
-    let rate=(props.comments.reduce((acc, cur) => {
-        return acc+(+cur.rate)
-    }, 0)/props.comments?.length).toFixed(1);
-    if(isNaN(rate)) rate=0;
     return(
         <>
             <div className="grid grid-cols-1 lg:grid-cols-3 lg:px-5">
-                <div><img src={props.product_image.cover} alt={props.title_alt}/></div>
+                <div><img src={props.imageCover} alt={props.title}/></div>
                 <div className="lg:col-span-2">
                     <div><h1 className="text-h4 px-5">{props.title}</h1></div>
                     <div className="grid grid-cols-1 lg:grid-cols-3 px-0 lg:pr-5">
                         <div className="col-span-2 order-2 lg:order-1">{/* Product Description  */}
-                            <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title_alt}</span></div>
+                            <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title}</span></div>
                             <div className="flex text-body-2 gap-6">{/* rate section */}
-                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{rate?rate:0}</p><p className="text-neutral-300 text-caption">({props.comments?.length})</p></div>
+                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{props.ratingsAverage}</p><p className="text-neutral-300 text-caption">({props.comments?.length})</p></div>
                                 <div className="text-secondary-700">{props.comments?.length} دیدگاه</div>
                                 <div className="text-secondary-700">{props.questions?.length} پرسش</div>
                             </div>
@@ -37,7 +31,7 @@ const ProductDetail=(props)=>{
                             <div>{/* product feature */}
                                 <ul>
                                     <div className="text-h4">ویژگی ها</div>
-                                    {props.product_attributes.map((e,i)=><li className="flex items-center" key={i}><p className="text-body-1 text-neutral-500 ml-2">&#9900; {e[0]}:</p><p className="text-body1-strong">{e[1]}</p></li>)}
+                                    {props.attributes.map((e,i)=><li className="flex items-center" key={i}><p className="text-body-1 text-neutral-500 ml-2">&#9900; {e[0]}:</p><p className="text-body1-strong">{e[1]}</p></li>)}
                                 </ul>
                             </div>
                         </div>
@@ -46,7 +40,7 @@ const ProductDetail=(props)=>{
                                 <div><p className="text-h5">فروشنده</p></div>
                                 <div className="flex">
                                     <div className="ml-5"><img src="/icons/store.svg"/></div>
-                                    <div className="flex-1"><p className="text-subtitle">{props.seller}</p></div>
+                                    <div className="flex-1"><p className="text-subtitle">دیجی من</p></div>
                                 </div>
                                 <div className="flex">
                                     <div className="ml-5"><img src="/icons/verify.svg"/></div>
@@ -59,11 +53,11 @@ const ProductDetail=(props)=>{
                                 <div className="flex items-center justify-between">
                                     <div><span className="text-caption line">قیمت فروشنده</span></div>
                                     <div>
-                                        {props.price.discount>0&&<div className="flex items-center gap-4">
-                                            <div className="line-through">{(props.price.original).toLocaleString()}</div>
-                                            <div className="px-1 text-white bg-primary-700 text-body2-strong flex justify-center items-center rounded-full w-14 h-8">{props.price.discount}%</div>
+                                        {props.priceDiscount>0&&<div className="flex items-center gap-4">
+                                            <div className="line-through">{(props.price).toLocaleString()}</div>
+                                            <div className="px-1 text-white bg-primary-700 text-body2-strong flex justify-center items-center rounded-full w-14 h-8">{props.priceDiscount}%</div>
                                         </div>}
-                                        <div className="text-left"><span className="text-h5">{((props.price.original)-(props.price.original*props.price.discount/100)).toLocaleString()}</span><span>تومان</span></div>
+                                        <div className="text-left"><span className="text-h5">{((props.price)-(props.price*props.priceDiscount/100)).toLocaleString()}</span><span>تومان</span></div>
                                     </div>
                                 </div>
                                 {indexProductInCart<0&&<button className="primary-button" onClick={()=>dispatch(addToCart({...props}))}>افزودن به سبد</button>}
@@ -109,13 +103,10 @@ const ProductDetail=(props)=>{
 }
 export default ProductDetail;
 
-
 export  async function getServerSideProps(context){
-    const client=await connectToDatabase();
-    const db= client.db();
-    const item=await db.collection("laptop").findOne({_id:ObjectId(`${context.params.id}`)});
-    let result=JSON.parse(JSON.stringify(item));
+    const items=await fetch(`http://127.0.0.1:3080/api/v1/products/${context.params.id}`);
+    const jsonItems=await items.json();
     return{
-        props:{...result}
+        props:{...jsonItems.data}
     }
 }

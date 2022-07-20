@@ -47,7 +47,7 @@ const ProductSlider = () => {
       onMouseLeave={mouseLeave}
       onMouseUp={mouseUp}
     >
-      <div className="inner-slider overflow-hidden h-80 flex absolute gap-1 bg-primary-700 p-1 rounded-xl px-3" onMouseMove={mouseMove}>
+      <div className="inner-slider overflow-hidden h-80 flex absolute gap-1 bg-primary-700 p-1 rounded-xl px-3 " onMouseMove={mouseMove}>
         <div className="min-w-80">
           <img src="/images/home/amazing-typo.svg" className="w-28" />
           <img src="/images/home/general.png" className="w-52" />
@@ -76,9 +76,42 @@ const ProductSlider = () => {
             <span>9199000 تومان</span>
             </div>
         </div>
+        <div className="min-w-80 flex flex-col items-center justify-center bg-white">
+            <img src="/images/home/1.jpg" className="w-52" />
+            <div>
+            <span>9199000 تومان</span>
+            </div>
+        </div>
+        <div className="min-w-80 flex flex-col items-center justify-center bg-white">
+            <img src="/images/home/1.jpg" className="w-52" />
+            <div>
+            <span>9199000 تومان</span>
+            </div>
+        </div>
+        <div className="min-w-80 flex flex-col items-center justify-center bg-white">
+            <img src="/images/home/1.jpg" className="w-52" />
+            <div>
+            <span>9199000 تومان</span>
+            </div>
+        </div>
+        <div className="min-w-80 flex flex-col items-center justify-center bg-white">
+            <img src="/images/home/1.jpg" className="w-52" />
+            <div>
+            <span>9199000 تومان</span>
+            </div>
+        </div>
+        <div className="min-w-80 flex flex-col items-center justify-center bg-white">
+            <img src="/images/home/1.jpg" className="w-52" />
+            <div>
+            <span>9199000 تومان</span>
+            </div>
+        </div>
         </div>
     </div>
   );
 };
 
 export default ProductSlider;
+
+
+
