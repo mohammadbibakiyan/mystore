@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useSession } from 'next-auth/client';
 import {useState} from "react";
 import { useSelector } from "react-redux";
 
@@ -10,7 +9,7 @@ import Footer from "./footer";
 
 const Layout=(props)=>{
     const cart=useSelector(state=>state.cart);
-    const [session, loading] = useSession();
+    const [session, loading] = "";
     const [inputSearchValue,setInputSearchValue]=useState("");
     return (
         <>

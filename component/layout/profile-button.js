@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { useState } from "react";
-import { signOut } from "next-auth/client"
 
 
 const ProfileButton=()=>{
