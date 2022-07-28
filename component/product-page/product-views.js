@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { showAlert } from "../../lib/showAlert";
 import Portal from "../layout/portal";
 
 const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
@@ -21,6 +22,7 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
         }
       );
       const result =await response.json();
+      showAlert(result.message,result.status);
       if (result.status !== "success") throw new Error(result.message);
       setShow(false);
     } catch (err) {

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
-import Alert from "../layout/alert";
+import { showAlert } from "../../lib/showAlert";
 
 const AuthForm = (props) => {
   const router=useRouter();
@@ -34,6 +34,7 @@ const AuthForm = (props) => {
           body: JSON.stringify({ email, password }),
         });
         const result=await response.json(); 
+        showAlert(result.message,result.status);
         if(result.status!=="success") throw new Error(result.message);
         router.replace("/");
       } catch (err) {
@@ -49,9 +50,11 @@ const AuthForm = (props) => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials:"include",
           body: JSON.stringify({ email, password,firstName,lastName,passwordConfirm }),
         });
         const result=await response.json(); 
+        showAlert(result.message,result.status);
         if(result.status!=="success") throw new Error(result.message);
         router.replace("/");
       } catch (err) {

@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
 import { addToCart,removeFromCart } from "../../store/slice/cart-slice";
 
 import ProductIntroduction from "../../component/product-page/product-introduction";

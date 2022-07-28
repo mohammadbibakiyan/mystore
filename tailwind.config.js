@@ -5,7 +5,17 @@ module.exports = {
   ],
   important: true,
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'alert': 'alert 4s linear ',
+      },
+      keyframes: {
+        "alert": {
+          '0%, 100%': { transform:'translateY(-100%) translateX(50%)' },
+          '20%,80%': { transform: 'translateY(0) translateX(50%)' },
+        }
+      }
+    },
     minWidth: {
       '80': '20rem',
     },
@@ -71,6 +81,14 @@ module.exports = {
       "icon-error": "#d32f2f",
       "app-background": "#f2f2f2",
       "brand-primary-700": "#e6123d",
+      "error":"#ffe2df",
+      "fail":"#fff3a5",
+      "info":"#c8ecff",
+      "success":"#ccf8e4",
+      "success-text":"#51d29e",
+      "info-text":"#4cc1f2",
+      "fail-text":"#f8ad26",
+      "error-text":"#f66763"
     },
   },
   plugins: [
