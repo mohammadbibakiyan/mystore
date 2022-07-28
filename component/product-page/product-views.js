@@ -33,19 +33,19 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
   const getRateColor = (rate) => {
     let rateClass = "";
     switch (rate) {
-      case "1":
+      case 1:
         rateClass = "icon-rating-0-2";
         break;
-      case "2":
+      case 2:
         rateClass = "icon-rating-0-2";
         break;
-      case "3":
+      case 3:
         rateClass = "icon-rating-2-3";
         break;
-      case "4":
+      case 4:
         rateClass = "icon-rating-3-4";
         break;
-      case "5":
+      case 5:
         rateClass = "icon-rating-4-5";
         break;
       default:
