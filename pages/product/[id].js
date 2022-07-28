@@ -23,9 +23,9 @@ const ProductDetail=(props)=>{
                         <div className="col-span-2 order-2 lg:order-1">{/* Product Description  */}
                             <div><span className="text-body-2 text-neutral-300 hidden lg:block">{props.title}</span></div>
                             <div className="flex text-body-2 gap-6">{/* rate section */}
-                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{props.ratingsAverage}</p><p className="text-neutral-300 text-caption">({props.comments?.length})</p></div>
-                                <div className="text-secondary-700">{props.comments?.length} دیدگاه</div>
-                                <div className="text-secondary-700">{props.questions?.length} پرسش</div>
+                                <div className="flex gap-2 items-center"><div><img src="/icons/star.png"/></div><p>{props.ratingsAverage}</p><p className="text-neutral-300 text-caption">({props.reviews?.length||0})</p></div>
+                                <div className="text-secondary-700">{props.reviews?.length||0} دیدگاه</div>
+                                <div className="text-secondary-700">{props.questions?.length||0} پرسش</div>
                             </div>
                             
                             <div>{/* product feature */}
@@ -96,7 +96,7 @@ const ProductDetail=(props)=>{
             </div>
             {props.introduction&&<ProductIntroduction introduction={props.introduction}/>}
             {props.specifications&&<ProductSpecifications specifications={props.specifications}/>}
-            <ProductViews _id={props._id} comments={props.comments}/>
+            <ProductViews _id={props._id} ratingsAverage={props.ratingsAverage} title={props.title} reviews={props.reviews}/>
             <ProductQuestion _id={props._id} questions={props.questions}/>
         </>
     )

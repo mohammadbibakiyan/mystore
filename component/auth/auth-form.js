@@ -27,6 +27,7 @@ const AuthForm = (props) => {
       try {
         const response = await fetch("http://127.0.0.1:3080/api/v1/users/login", {
           method: "POST",
+          credentials:"include",
           headers: {
             "Content-Type": "application/json",
           },

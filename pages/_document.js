@@ -11,6 +11,7 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/icons/favicon.svg" />
         </Head>
         <body>
+          <div id='alert'></div>
           <Main/>
           <NextScript />
           <div id='overlays'/>
