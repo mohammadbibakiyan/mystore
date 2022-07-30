@@ -30,7 +30,7 @@ const ProductDetail=(props)=>{
                             <div>{/* product feature */}
                                 <ul>
                                     <div className="text-h4">ویژگی ها</div>
-                                    {props.attributes.map((e,i)=><li className="flex items-center" key={i}><p className="text-body-1 text-neutral-500 ml-2">&#9900; {e[0]}:</p><p className="text-body1-strong">{e[1]}</p></li>)}
+                                    {props.attributes?.map((e,i)=><li className="flex items-center" key={i}><p className="text-body-1 text-neutral-500 ml-2">&#9900; {e[0]}:</p><p className="text-body1-strong">{e[1]}</p></li>)}
                                 </ul>
                             </div>
                         </div>

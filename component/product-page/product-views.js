@@ -104,15 +104,18 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
                 {e.rating}
               </div>
               <div className="divide-y-2 divide-solid divide-neutral-200 divide-x-0">
-                <div className="text-caption text-neutral-400 flex gap-12">
-                  <p>
-                    {new Intl.DateTimeFormat("fa-IR", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    }).format(new Date(e.createAt))}
-                  </p>
-                  <p>{e.user.firstName} {e.user.lastName}</p>
+                <div>
+                  <div className="text-neutral-900 text-h5 pb-3">{e.title}</div>
+                  <div className="text-caption text-neutral-400 flex gap-12">
+                    <p>
+                      {new Intl.DateTimeFormat("fa-IR", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      }).format(new Date(e.createAt))}
+                    </p>
+                    <p>{e.user.firstName} {e.user.lastName}</p>
+                  </div>
                 </div>
                 <p className="text-body-1 pt-3 mb-1">{e.review}</p>
               </div>

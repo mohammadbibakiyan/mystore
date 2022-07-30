@@ -1,22 +1,31 @@
-import {  useState } from "react";
+import { useState } from "react";
 import Portal from "../layout/portal";
-import {showAlert} from "./../../lib/showAlert";
+import { showAlert } from "./../../lib/showAlert";
 
 const ProductQuestion = ({ _id, questions = [] }) => {
   const [showQuestionBox, setShowQuestionBox] = useState(false);
   const [showAnswerBox, setShowAnswerBox] = useState(false);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
-  const submitAnswerHandler = (_id) => {
-    fetch(`/api/v1/questions/${_id}/answer/add`, {
-      method: "POST",
-      headers: { "Content-Type": "application.json" },
-      body: JSON.stringify(answer),
-    }).then(() => {
+  const submitAnswerHandler = async (id) => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:3080/api/v1/questions/${id}/answer`,
+        {
+          method: "POST",
+          body: JSON.stringify({ text: answer }),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+      const result = await response.json();
+      showAlert(result.message, result.status);
+      if (result.status !== "success") throw new Error(result.message);
       setShowAnswerBox(false);
       setAnswer("");
-    });
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   const submitQuestionHandler = async () => {
     try {
@@ -29,17 +38,15 @@ const ProductQuestion = ({ _id, questions = [] }) => {
           credentials: "include",
         }
       );
-      const result=await response.json();
-      showAlert(result.message,result.status);
-      if(result.status!=="success") throw new Error(result.message);
+      const result = await response.json();
+      showAlert(result.message, result.status);
+      if (result.status !== "success") throw new Error(result.message);
       setShowQuestionBox(false);
-      setAnswer("");
+      setQuestion("");
     } catch (err) {
       console.log(err.message);
     }
   };
-
-
   return (
     <div className="mt-5">
       <p className="text-h5 text-neutral-900 inline border-0 border-b-2 border-primary-500 border-solid">
@@ -62,7 +69,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
         </div>
 
         <div className="lg:col-span-3  mt-8 lg:m-0 pr-5 flex flex-col gap-10">
-          {questions.map(e => (
+          {questions.map((e) => (
             <article key={e._id}>
               <div className="flex">
                 <span>
@@ -74,7 +81,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
                 <div key={e._id}>
                   <div className="mt-4 text-neutral-600 flex items-center">
                     <p className="text-caption ml-4">پاسخ</p>
-                    <p className="text-body-1">{e.answer}</p>
+                    <p className="text-body-1">{e.text}</p>
                   </div>
                   <div className="mr-10"></div>
                 </div>
@@ -82,7 +89,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
               <div className="mt-4 mr-10">
                 <button
                   className="text-button-secondary text-button-2"
-                  onClick={() => setShowAnswerBox(e._id)}
+                  onClick={() => setShowAnswerBox(e)}
                 >
                   {e.answers?.length > 0 ? "ثبت پاسخ جدید" : "ثبت پاسخ "} &#62;
                 </button>
@@ -148,7 +155,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
             />
           </div>
           <div className="py-4">
-            <p className="text-body-1 mb-4">تفاوت این دو مدل دقیقا چی هست؟</p>
+            <p className="text-body-1 mb-4">{showAnswerBox.text}</p>
             <div>
               <label className="text-body-1 text-neutral-700 mb-2 mr-4">
                 پاسخ
@@ -168,7 +175,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
           <div className="flex py-4">
             <button
               className="primary-button ml-4"
-              onClick={() => submitAnswerHandler(showAnswerBox)}
+              onClick={() => submitAnswerHandler(showAnswerBox._id)}
             >
               ثبت پاسخ
             </button>
