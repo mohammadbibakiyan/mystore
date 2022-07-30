@@ -6,10 +6,9 @@ import Loader from '../component/layout/loader';
 import { Provider } from 'react-redux';
 import store from '../store/store';
 
-
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     const start = () => {
       setLoading(true);
@@ -26,7 +25,7 @@ function MyApp({ Component, pageProps }) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
-
+  
   if(loading){
     return <Loader/>
   }

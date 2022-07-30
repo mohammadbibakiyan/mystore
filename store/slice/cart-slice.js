@@ -4,7 +4,13 @@ const cartSlice=createSlice({
     name:"cart",
     initialState:{originalPrice:0,discountPrice:0,products:[]},
     reducers:{
-        addToCart:(state,action)=>{
+        addFromLocalStorage(state,action){
+            console.log("blblbl");
+            state.originalPrice=action.payload.originalPrice;
+            state.discountPrice=action.payload.discountPrice;
+            state.products=action.payload.products; 
+        },
+        addToCart(state,action){
             const existIndex=state.products.findIndex(e=>action.payload._id===e._id);
             if(existIndex!==-1){
                 //درون سبد خرید وجود دارد
@@ -17,7 +23,7 @@ const cartSlice=createSlice({
                 state.originalPrice+=action.payload.price;
                 state.discountPrice+=((action.payload.price)*(action.payload.priceDiscount))/100;
             }
-
+        localStorage.setItem("cart",JSON.stringify(state))
         },
         removeFromCart(state,action){
             const existIndex=state.products.findIndex(e=>action.payload._id===e._id);
@@ -30,9 +36,11 @@ const cartSlice=createSlice({
                 //میزان موجودی بیشتر از درخواست کاهش است
                 state.products[existIndex].quantity-=1;
             }
+            localStorage.setItem("cart",JSON.stringify(state))
         },
+        
     }
 })
 
-export const {addToCart,removeFromCart}=cartSlice.actions;
+export const {addToCart,removeFromCart,addFromLocalStorage}=cartSlice.actions;
 export default cartSlice.reducer;

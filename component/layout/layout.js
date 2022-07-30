@@ -1,13 +1,31 @@
 import Link from "next/link";
 import {useState} from "react";
 import { useSelector } from "react-redux";
+import { addFromLocalStorage } from "./../../store/slice/cart-slice";
+import { useDispatch } from "react-redux";
+import {useEffect} from "react";
 
 import HamburgerMenu from "./hamburger-menu";
 import ProfileButton from "./profile-button";
 import Footer from "./footer";
-
+let first=true
 
 const Layout=(props)=>{
+    const dispatch=useDispatch();
+
+    useEffect(()=>{
+      if(first){
+        const cartStorage=localStorage.getItem("cart");
+        const cart=JSON.parse(cartStorage);
+        console.log(cart);
+        if(cart.products.length>0){
+            dispatch(addFromLocalStorage(cart));
+        }
+        first=false;
+}
+    },[]);
+
+
     const cart=useSelector(state=>state.cart);
     const [session, loading] = "";
     const [inputSearchValue,setInputSearchValue]=useState("");

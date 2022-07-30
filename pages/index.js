@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Slider from "./../component/public/slider";
 import ProductSlider from "../component/product-slider";
 
-
 export default function Home() {
   return (
     <div className="min-h-screen">
