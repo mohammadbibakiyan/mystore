@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import Slider from "./../component/public/slider";
 import ProductSlider from "../component/product-slider";
+import Dropdown from "../component/public/dropdown-menu";
 
 export default function Home() {
   return (

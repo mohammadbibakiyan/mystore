@@ -4,7 +4,6 @@ const HamburgerMenu=()=>{
     const [show,setShow]=useState(false);
     const showHandler=()=>{
         setShow(prev=>!prev);
-        console.log(show);
     }
     const showHandler2=(e)=>{
         if(e.target===document.getElementById("overlay")){

@@ -5,7 +5,6 @@ const cartSlice=createSlice({
     initialState:{originalPrice:0,discountPrice:0,products:[]},
     reducers:{
         addFromLocalStorage(state,action){
-            console.log("blblbl");
             state.originalPrice=action.payload.originalPrice;
             state.discountPrice=action.payload.discountPrice;
             state.products=action.payload.products; 

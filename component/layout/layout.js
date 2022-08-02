@@ -17,7 +17,6 @@ const Layout=(props)=>{
       if(first){
         const cartStorage=localStorage.getItem("cart");
         const cart=JSON.parse(cartStorage);
-        console.log(cart);
         if(cart.products.length>0){
             dispatch(addFromLocalStorage(cart));
         }

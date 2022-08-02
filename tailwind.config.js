@@ -14,7 +14,10 @@ module.exports = {
           '0%, 100%': { transform:'translateY(-100%) translateX(50%)' },
           '20%,80%': { transform: 'translateY(0) translateX(50%)' },
         }
-      }
+      },
+      fontFamily: {
+        Kordi: ["Kordi"],
+      },
     },
     minWidth: {
       '80': '20rem',

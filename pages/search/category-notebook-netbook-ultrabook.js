@@ -1,6 +1,5 @@
 import Filter from "../../component/product-page/filter"
 import ProductList from "../../component/product-page/product-list";
-// import fetch from 'node-fetch';
 
 const ProductPage = (props) => {
   return (
