@@ -91,7 +91,8 @@ module.exports = {
       "success-text":"#51d29e",
       "info-text":"#4cc1f2",
       "fail-text":"#f8ad26",
-      "error-text":"#f66763"
+      "error-text":"#f66763",
+      "hint-text-caution":"#f57f17",
     },
   },
   plugins: [

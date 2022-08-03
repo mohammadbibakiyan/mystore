@@ -15,6 +15,7 @@ export default ProductPage;
 export async function getStaticProps(){
     const items=await fetch("http://127.0.0.1:3080/api/v1/products");
     const jsonItems=await items.json();
+    console.log(jsonItems);
     return{
         props:{
             items:jsonItems.data
