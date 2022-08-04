@@ -50,7 +50,7 @@ html{
 }
 
 body {
-  padding:0 10px;
+  /* padding:0 10px; */
   direction: rtl;
   font-family:IranYekan;
   position: relative;
@@ -237,6 +237,11 @@ textarea{
   border: 1px solid var(--color-neutral-200)!important;
   border-radius: var(--medium-radius);
 }
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .primary-button{
   background-color: var(--color-button-primary);
   color: var(--color-white);
@@ -258,6 +263,11 @@ textarea{
   border:1px solid var(--color-button-primary);
   border-radius: var(--medium-radius);
   cursor: pointer;
+}
+.text-h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.12;
 }
 .text-h4 {
   font-size: 1.6rem;

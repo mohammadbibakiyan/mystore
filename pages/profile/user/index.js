@@ -1,4 +1,4 @@
-import ProductItem from "./../../component/product-page/product-item";
+import ProductItem from "./../../../component/product-page/product-item";
 
 const Profile = () => {
     let items=[

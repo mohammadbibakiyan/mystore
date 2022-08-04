@@ -1,14 +1,13 @@
-import '../styles/globals.css';
+import "../styles/globals.css";
 import Router from "next/router";
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Layout from "./../component/layout/layout";
-import Loader from '../component/layout/loader';
-import { Provider } from 'react-redux';
-import store from '../store/store';
+import Loader from "../component/layout/loader";
+import { Provider } from "react-redux";
+import store from "../store/store";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps,...appProps }) {
   const [loading, setLoading] = useState(false);
-  
   useEffect(() => {
     const start = () => {
       setLoading(true);
@@ -25,16 +24,25 @@ function MyApp({ Component, pageProps }) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
-  
-  if(loading){
-    return <Loader/>
+
+  if (loading) {
+    return <Loader />;
   }
-  return(
+  if ([`/profile/seller`,`/profile/admin`].includes(appProps.router.pathname)) {
+    return (
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    );
+  }
+
+  return (
     <Provider store={store}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </Provider>)
+    </Provider>
+  );
 }
 
-export default MyApp
+export default MyApp;
