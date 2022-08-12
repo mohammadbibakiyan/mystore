@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ProfileLayout from "../../../component/user-profile/profile-layout";
 import ProductItem from "./../../../component/product-page/product-item";
 import Loader from "../../../component/layout/loader";
 import jwt_decode from "jwt-decode";
@@ -55,144 +56,58 @@ const Profile = () => {
   if (!user) return <Loader />;
 
   return (
-    <div className="grid grid-cols-7 gap-4 max-w-screen-xl mx-auto">
-      <div className="col-span-12 lg:col-span-2 card p-4 divide-y-2 divide-x-0 divide-solid divide-neutral-300">
-        <div className="py-5">
-          <div className="flex justify-between items-center">
-            <div className="flex">
-              <div>
-                <img
-                  src="https://api.digikala.com/static/files/fd4840b2.svg"
-                  className="w-20"
-                />
-              </div>
-              <div>
-                <p className="text-h5 text-neutral-800">
-                  {user.firstName} {user.lastName}
-                </p>
-                <p className="text-body-1 text-neutral-400">
-                  {user.mobile || ""}
-                </p>
-              </div>
-            </div>
-            <img src="/icons/edit.svg" className="w-9" />
-          </div>
-          <div>
-            <div className="flex justify-between">
-              <p className="text-body-1 text-neutral-800">کیف پول</p>
-              <p className="text-subtitle-strong ">{user.wallet || 0}تومان</p>
-            </div>
-            <span className="text-botton-2 text-secondary-500 font-bold">
-              افزایش موجودی &#62;
-            </span>
-          </div>
-        </div>
-        <div className=" divide-y-2 divide-x-0 divide-solid divide-neutral-100">
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/home.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">
-              خلاصه فعالیت ها
-            </div>
-          </div>
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/shopping-bag.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">سفارش ها</div>
-          </div>
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/favorite.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">
-              لیست های من
-            </div>
-          </div>
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/comment.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">دیدگاه ها</div>
-          </div>
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/signpost.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">آدرس ها</div>
-          </div>
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/person.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">
-              اطلاعات حساب کاربری
-            </div>
-          </div>
-          <div className="flex items-center py-3">
-            <div>
-              <img src="/icons/logout.svg" className="w-10 ml-4" />
-            </div>
-            <div className="text-neutral-800 text-body1-strong">خروج</div>
-          </div>
-        </div>
+    <ProfileLayout>
+      <div className="card flex justify-between items-center px-5 py-3 mb-4">
+        <p className="text-body-2 text-hint-text-caution font-bold">
+          برای افزایش امنیت حساب کاربری خود و جلوگیری از سوءاستفاده، لطفا هویت
+          خود را تایید کنید
+        </p>
+        <span className="text-secondary-500 font-bold">تایید هویت &#62;</span>
       </div>
-      <div className="col-span-12 lg:col-span-5">
-        <div className="card flex justify-between items-center px-5 py-3 mb-4">
-          <p className="text-body-2 text-hint-text-caution font-bold">
-            برای افزایش امنیت حساب کاربری خود و جلوگیری از سوءاستفاده، لطفا هویت
-            خود را تایید کنید
+      <div className="card px-5 py-4 mb-4">
+        <div className="flex justify-between items-center mb-10">
+          <p className="text-h5 border-0 border-b-2 border-solid border-primary-700">
+            سفارش های من
           </p>
-          <span className="text-secondary-500 font-bold">تایید هویت &#62;</span>
+          <span className="text-secondary-500 font-bold">مشاهده همه &#62;</span>
         </div>
-        <div className="card px-5 py-4 mb-4">
-          <div className="flex justify-between items-center mb-10">
-            <p className="text-h5 border-0 border-b-2 border-solid border-primary-700">
-              سفارش های من
-            </p>
-            <span className="text-secondary-500 font-bold">
-              مشاهده همه &#62;
-            </span>
-          </div>
-          <div className="flex items-center">
-            <div className="flex gap-3 items-center flex-grow">
-              <img src="/images/order/status-processing.JPG" className="w-20" />
-              <div className="text-neutral-700 ">
-                <p className="text-subtitle-strong">0 سفارش</p>
-                <p className="text-body2-strong">جاری</p>
-              </div>
-            </div>
-            <div className="flex gap-3 items-center flex-grow">
-              <img src="/images/order/status-delivered.JPG" className="w-20" />
-              <div className="text-neutral-700 ">
-                <p className="text-subtitle-strong">18 سفارش </p>
-                <p className="text-body2-strong">تحویل شد</p>
-              </div>
-            </div>
-            <div className="flex gap-3 items-center flex-grow">
-              <img src="/images/order/status-returned.JPG" className="w-20" />
-              <div className="text-neutral-700 ">
-                <p className="text-subtitle-strong">2 سفارش</p>
-                <p className="text-body2-strong">مرجوع شده</p>
-              </div>
+        <div className="flex items-center">
+          <div className="flex gap-3 items-center flex-grow">
+            <img src="/images/order/status-processing.JPG" className="w-20" />
+            <div className="text-neutral-700 ">
+              <p className="text-subtitle-strong">0 سفارش</p>
+              <p className="text-body2-strong">جاری</p>
             </div>
           </div>
-        </div>
-        <div className="card px-5 py-4">
-          <div className=" mb-10">
-            <p className="text-h5 border-0 border-b-2 border-solid border-primary-700">
-              خریدهای پرتکرار شما
-            </p>
+          <div className="flex gap-3 items-center flex-grow">
+            <img src="/images/order/status-delivered.JPG" className="w-20" />
+            <div className="text-neutral-700 ">
+              <p className="text-subtitle-strong">18 سفارش </p>
+              <p className="text-body2-strong">تحویل شد</p>
+            </div>
           </div>
-          <div className="grid grid-cols-3">
-            {items.map((e) => (
-              <ProductItem key={e._id} {...e} />
-            ))}
+          <div className="flex gap-3 items-center flex-grow">
+            <img src="/images/order/status-returned.JPG" className="w-20" />
+            <div className="text-neutral-700 ">
+              <p className="text-subtitle-strong">2 سفارش</p>
+              <p className="text-body2-strong">مرجوع شده</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="card px-5 py-4">
+        <div className=" mb-10">
+          <p className="text-h5 border-0 border-b-2 border-solid border-primary-700">
+            خریدهای پرتکرار شما
+          </p>
+        </div>
+        <div className="grid grid-cols-3">
+          {items.map((e) => (
+            <ProductItem key={e._id} {...e} />
+          ))}
+        </div>
+      </div>
+    </ProfileLayout>
   );
 };
 
@@ -201,7 +116,7 @@ export default Profile;
 export async function getServerSideProps(context) {
   try {
     var decoded = jwt_decode(context.req?.cookies?.jwt);
-    if(decoded.role!=="user") throw new Error("دسترسی غیر مجاز")
+    if (decoded.role !== "user") throw new Error("دسترسی غیر مجاز");
   } catch (err) {
     return {
       redirect: {
@@ -209,8 +124,8 @@ export async function getServerSideProps(context) {
         permanent: false,
       },
     };
-  };
-  return{
-    props:{}
   }
+  return {
+    props: {},
+  };
 }

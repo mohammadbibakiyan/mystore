@@ -10,7 +10,6 @@ const authSlice=createSlice({
             localStorage.setItem("auth",JSON.stringify(state))
         },
         logoutF(state){
-            console.log("slicer");
             state.auth=false;
             state.role=null;
             localStorage.removeItem("auth")
