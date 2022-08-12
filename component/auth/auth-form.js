@@ -1,9 +1,12 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { showAlert } from "../../lib/showAlert";
+import { useDispatch } from "react-redux";
+import  {loginF}  from "./../../store/slice/auth-slice";
 
 const AuthForm = (props) => {
   const router=useRouter();
+  const dispatch=useDispatch();
   const [message,setMessage]=useState("");
   const [login, setLogin] = useState(true);
   const firstNameRef = useRef();
@@ -36,6 +39,7 @@ const AuthForm = (props) => {
         const result=await response.json(); 
         showAlert(result.message,result.status);
         if(result.status!=="success") throw new Error(result.message);
+        dispatch(loginF({role:result.data.role}));
         router.replace("/");
       } catch (err) {
         setMessage(err.message)
@@ -56,6 +60,7 @@ const AuthForm = (props) => {
         const result=await response.json(); 
         showAlert(result.message,result.status);
         if(result.status!=="success") throw new Error(result.message);
+        dispatch(loginF({role:result.data.role}));
         router.replace("/");
       } catch (err) {
         setMessage(err.message)

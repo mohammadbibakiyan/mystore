@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps,...appProps }) {
   if (loading) {
     return <Loader />;
   }
-  if ([`/profile/seller`,`/profile/admin`].includes(appProps.router.pathname)) {
+  if ([`/profile/seller`,`/profile/admin`,`/content/create/product`].includes(appProps.router.pathname)) {
     return (
       <Provider store={store}>
         <Component {...pageProps} />
@@ -37,11 +37,11 @@ function MyApp({ Component, pageProps,...appProps }) {
   }
 
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Provider>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
   );
 }
 

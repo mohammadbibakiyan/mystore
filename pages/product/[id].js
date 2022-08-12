@@ -8,7 +8,7 @@ import ProductSpecifications from "../../component/product-page/product-specific
 import ProductViews from "../../component/product-page/product-views";
 import ProductQuestion from "../../component/product-page/product-question";
 
-const ProductDetail=(props)=>{  
+const ProductDetail=(props)=>{
     const cart=useSelector(state=>state.cart);
     const indexProductInCart=cart.products.findIndex(e=>e._id===props._id);
     const dispatch=useDispatch();
@@ -26,7 +26,11 @@ const ProductDetail=(props)=>{
                                 <div className="text-secondary-700">{props.reviews?.length||0} دیدگاه</div>
                                 <div className="text-secondary-700">{props.questions?.length||0} پرسش</div>
                             </div>
-                            
+                            <div>
+                                <p className='text-h5 text-neutral-900'>رنگ:</p>
+                                <div className='flex gap-3'>{Object.keys(props.quantity).map(key =><div className={`bg-${key} w-12 h-12 rounded-full`}></div>)}
+                                </div>
+                            </div>
                             <div>{/* product feature */}
                                 <ul>
                                     <div className="text-h4">ویژگی ها</div>

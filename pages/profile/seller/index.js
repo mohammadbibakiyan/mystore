@@ -1,4 +1,4 @@
-// import Link from "next/Link"
+import Link from "next/Link"
 
 const sellerProfile = () => {
   return (
@@ -11,7 +11,7 @@ const sellerProfile = () => {
           </h1>
         </div>
       </header>
-      <div style={{ backgroundColor: "#f5f7fa" }}>
+      <div style={{ backgroundColor: "#f5f7fa" }} className="px-8">
         <div className="grid grid-cols-12 py-10 max-w-screen-xl mx-auto gap-10">
           <div className="col-span-12 lg:col-span-3 flex flex-col gap-10 ">
             <div className="w-full p-6 flex flex-col items-center bg-white rounded-2xl">
@@ -22,18 +22,18 @@ const sellerProfile = () => {
                 دیجی من
               </h2>
               <div className="flex w-full gap-2">
-                <div className="flex flex-col justify-center items-center flex-grow h-20 card">
+                <div className="flex flex-col justify-center items-center flex-grow h-20 card hover:shadow-md cursor-pointer">
                   <img src="/icons/chat.svg" className="w-10 opacity-40" />
                   <p>پرسش ها</p>
                 </div>
-                <div className="flex flex-col justify-center items-center flex-grow h-20 card relative">
+                <div className="flex flex-col justify-center items-center flex-grow h-20 card relative hover:shadow-md cursor-pointer">
                   <img src="/icons/mail.svg" className="w-10 opacity-40" />
                   <p>پیام ها</p>
                   <span className="absolute bg-primary-500 w-8 h-8 top-0 right-0 text-center align-middle text-white rounded-full">
                     70
                   </span>
                 </div>
-                <div className="flex flex-col justify-center items-center flex-grow h-20 card">
+                <div className="flex flex-col justify-center items-center flex-grow h-20 card hover:shadow-md cursor-pointer">
                   <img src="/icons/person.svg" className="w-10 opacity-40" />
                   <p>پروفایل</p>
                 </div>
@@ -101,9 +101,9 @@ const sellerProfile = () => {
           </div>
           <div className="col-span-12 lg:col-span-9">
             <div></div>
-            <div className="flex w-full gap-10">
-                <div className="relative flex-grow w-8 p-8 bg-white rounded-2xl text-h5"><h2>افزودن محصول جدید</h2><div className="absolute -left-10 top-4 text-white rounded-2xl w-20 h-20 bg-secondary-500 center">+</div></div>
-                <div className="flex-grow"></div>
+            <div className="flex w-full gap-20">
+                <Link href="/content/create/product"><div className="relative flex-grow w-8 p-8 bg-white rounded-2xl text-h5 cursor-pointer"><h2>افزودن محصول جدید</h2><div className="absolute -left-10 top-4 text-white rounded-2xl w-20 h-20 bg-secondary-500 center">+</div></div></Link>
+                <div className="relative flex-grow w-8 p-8 bg-white rounded-2xl text-h5"><h2> وضعیت پرداخت <small className="border-0 border-r border-neutral-500 p-2 border-solid">فعال</small></h2><div className="absolute -left-10 top-4 text-white rounded-2xl w-20 h-20 bg-success-text center">&#x2713;</div></div>
             </div>
           </div>
         </div>

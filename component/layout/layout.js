@@ -2,35 +2,40 @@ import Link from "next/link";
 import {useState} from "react";
 import { useSelector } from "react-redux";
 import { addFromLocalStorage } from "./../../store/slice/cart-slice";
+import { setAuthFromLocalStorage } from "./../../store/slice/auth-slice";
 import { useDispatch } from "react-redux";
 import {useEffect} from "react";
 
 import HamburgerMenu from "./hamburger-menu";
 import ProfileButton from "./profile-button";
 import Footer from "./footer";
-let first=true
 
+
+let first=true
 const Layout=(props)=>{
     const dispatch=useDispatch();
+    const cart=useSelector(state=>state.cart);
+    const auth=useSelector(state=>state.auth);
+    const [inputSearchValue,setInputSearchValue]=useState("");
 
     useEffect(()=>{
       if(first){
         const cartStorage=localStorage.getItem("cart");
+        const authStorage=localStorage.getItem("auth");
         const cart=JSON.parse(cartStorage);
-        if(cart.products.length>0){
+        const auth=JSON.parse(authStorage);
+        if(cart?.products.length>0){
             dispatch(addFromLocalStorage(cart));
+        }
+        if(auth){
+            dispatch(setAuthFromLocalStorage(auth));
         }
         first=false;
 }
     },[]);
 
-
-    const cart=useSelector(state=>state.cart);
-    const [session, loading] = "";
-    const [inputSearchValue,setInputSearchValue]=useState("");
     return (
         <>
-
             <div className="block md:hidden">
                 <HamburgerMenu/>
             </div>
@@ -46,9 +51,9 @@ const Layout=(props)=>{
                 </div>
                 
                 <div className="flex gap-5">
-                    {!session&&<Link href="/users/login"><a className="hover:cursor-pointer"><img src="/icons/login.svg"/></a></Link>}
-                    {session&&<ProfileButton/>}
-                    <Link href="/checkout/cart"><a className="hover:cursor-pointer relative"><img src="/icons/shopping-cart.svg" />{cart.products.length>0&&<span className="absolute -right-3 top-5 w-7 h-7 flex justify-center items-end rounded-lg bg-primary-700 text-white">{cart.products.length}</span>}</a></Link>
+                    {!auth.auth&&<Link href="/users/login"><a className="hover:cursor-pointer"><img src="/icons/login.svg"/></a></Link>}
+                    {auth.auth&&<ProfileButton/>}
+                    <Link href="/checkout/cart"><a className="hover:cursor-pointer relative"><img src="/icons/shopping-cart.svg" />{cart?.products.length>0&&<span className="absolute -right-3 top-5 w-7 h-7 flex justify-center items-end rounded-lg bg-primary-700 text-white">{cart.products.length}</span>}</a></Link>
                 </div> 
             </div>
 

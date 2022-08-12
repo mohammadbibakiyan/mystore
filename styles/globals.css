@@ -101,6 +101,14 @@ textarea{
   border-radius: var(--medium-radius);
   background-color: var(--color-neutral-200);
 }
+select{
+  width: 100%;
+  padding: 10px 15px;
+  border:1px solid #bbbaba;
+  color: #606265;
+  font-size: 12px;
+  border-radius: 8px;
+}
 
 :root {
   --spacing-base: 4px;
@@ -232,7 +240,6 @@ textarea{
   --color-app-background-rgb: 242,242,242;
   --color-brand-primary-700-rgb: 230,18,61;
 }
-
 .card{
   border: 1px solid var(--color-neutral-200)!important;
   border-radius: var(--medium-radius);
