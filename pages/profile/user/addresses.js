@@ -1,5 +1,4 @@
 import ProfileLayout from "../../../component/user-profile/profile-layout";
-
 const Addresses = () => {
   return (
     <ProfileLayout>
