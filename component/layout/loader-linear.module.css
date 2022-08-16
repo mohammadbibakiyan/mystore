@@ -9,18 +9,16 @@
     color: #a1a3a8;
     font-size: 7px;
     position: absolute;
-    top: 50%;
+    top: calc(50% - 2.5em);
     left: 50%;
     transform: translate(-50%,-50%);
     text-indent: -9999em;
-    transform: translateZ(0);
     animation-delay: -0.16s;
   }
   .loader:before,
   .loader:after {
     content: '';
     position: absolute;
-    top: 0;
   }
   .loader:before {
     left: -2.5em;

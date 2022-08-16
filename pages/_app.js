@@ -1,10 +1,12 @@
 import "../styles/globals.css";
 import Router from "next/router";
-import { useState, useEffect } from "react";
-import Layout from "./../component/layout/layout";
-import Loader from "../component/layout/loader";
+import { useState, useEffect, useMemo } from "react";
 import { Provider } from "react-redux";
+
 import store from "../store/store";
+import Layout from "./../component/layout/layout";
+import ProfileLayout from "../component/user-profile/profile-layout";
+import Loader from "../component/layout/loader";
 
 function MyApp({ Component, pageProps,...appProps }) {
   const [loading, setLoading] = useState(false);
@@ -28,10 +30,23 @@ function MyApp({ Component, pageProps,...appProps }) {
   if (loading) {
     return <Loader />;
   }
+
   if ([`/profile/seller`,`/profile/admin`,`/content/create/product`].includes(appProps.router.pathname)) {
     return (
       <Provider store={store}>
         <Component {...pageProps} />
+      </Provider>
+    );
+  }
+
+  if (appProps.router.pathname.startsWith("/profile/user")) {
+    return (
+      <Provider store={store}>
+        <Layout>
+          <ProfileLayout>
+            <Component {...pageProps} />
+          </ProfileLayout>
+        </Layout>
       </Provider>
     );
   }

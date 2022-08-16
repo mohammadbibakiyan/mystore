@@ -1,4 +1,6 @@
 import Link from "next/link";
+import React from "react";
+import { useCallback, useMemo } from "react";
 
 const ProfileLayout=(props)=>{
     return (
@@ -96,4 +98,4 @@ const ProfileLayout=(props)=>{
       );
 }
 
-export default ProfileLayout;
+export default React.memo(ProfileLayout);

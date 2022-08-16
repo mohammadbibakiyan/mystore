@@ -2,9 +2,7 @@ import ProfileLayout from "../../../component/user-profile/profile-layout";
 
 const Orders = () => {
   return (
-    <ProfileLayout>
-      سفارش ها 
-    </ProfileLayout>
+    <div>سفارش ها</div>
   );
 };
 export default Orders;

@@ -5,7 +5,7 @@ import Loader from "../../../component/layout/loader";
 import jwt_decode from "jwt-decode";
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   let items = [
     {
       _id: "62db78ed8d89659afa3aca7b",
@@ -45,18 +45,18 @@ const Profile = () => {
     },
   ];
 
-  useEffect(async () => {
-    const response = await fetch("http://127.0.0.1:3080/api/v1/users/me", {
-      credentials: "include",
-    });
-    const result = await response.json();
-    setUser(result.user);
-  }, []);
+  // useEffect(async () => {
+  //   const response = await fetch("http://127.0.0.1:3080/api/v1/users/me", {
+  //     credentials: "include",
+  //   });
+  //   const result = await response.json();
+  //   setUser(result.user);
+  // }, []);
 
-  if (!user) return <Loader />;
+  // if (!user) return <Loader />;
 
   return (
-    <ProfileLayout>
+    <>
       <div className="card flex justify-between items-center px-5 py-3 mb-4">
         <p className="text-body-2 text-hint-text-caution font-bold">
           برای افزایش امنیت حساب کاربری خود و جلوگیری از سوءاستفاده، لطفا هویت
@@ -107,7 +107,7 @@ const Profile = () => {
           ))}
         </div>
       </div>
-    </ProfileLayout>
+    </>
   );
 };
 
