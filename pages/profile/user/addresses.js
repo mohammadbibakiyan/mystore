@@ -6,15 +6,16 @@ import { showAlert } from "../../../lib/showAlert";
 
 const Addresses = () => {
   const [userInfo,setUserInfo]=useState(null);
+  const [loading,setLoading]=useState(true);
   const [openModal,setOpenModal]=useState(false);
   const formRef=useRef();
   useEffect(async()=>{
-    try{const response=await fetch("http://127.0.0.1:3080/api/v1/users/me?fields=postalAddress,email,firstName,lastName",{
+    try{const response=await fetch("http://127.0.0.1:3080/api/v1/users/me?fields=postalAddress",{
       credentials:"include"
     });
     const result=await response.json();
-    if(result.user.postalAddress) {setUserInfo(result.user); return}
-    setUserInfo("empty")
+    if(result.user.postalAddress) {setUserInfo(result.user.postalAddress);}
+    setLoading(false);
   }catch(err){
       console.log(err);
     }
@@ -23,6 +24,7 @@ const Addresses = () => {
   const submitAddressHandler=async(e)=>{
     e.preventDefault(); 
     const addressData=Object.fromEntries([...new FormData(formRef.current)]);
+    console.log(addressData);
     try{
       const response = await fetch(
         `http://127.0.0.1:3080/api/v1/users/updateMe`,
@@ -45,19 +47,19 @@ const Addresses = () => {
 
   return (
       <div className="card px-10 py-7 relative">
-        {!userInfo&&<LoaderLinear/>}
-        {userInfo&&(<><div className="pb-7  flex justify-between items-center ">
+        {loading&&<LoaderLinear/>}
+        {!loading&&(<><div className="pb-7  flex justify-between items-center ">
           <p className="text-h5 border-0 border-b-2 border-solid border-primary-700">آدرس </p>
           <button onClick={()=>setOpenModal(true)} className="text-body1-strong text-button-primary border border-solid border-button-primary px-7 py-5 rounded-xl">ویرایش و ثبت آدرس</button>
         </div>
-        {userInfo==="empty"&&<p>آدرسی برای شما ثبت نشده است</p>}
-        {userInfo!=="empty"&&<div className="pt-7">
-          <div className="text-body1-strong text-neutral-700">{userInfo.postalAddress?.address}</div>
+        {!loading&&!userInfo&&<p>آدرسی برای شما ثبت نشده است</p>}
+        {userInfo&&<div className="pt-7">
+          <div className="text-body1-strong text-neutral-700">{userInfo?.address}</div>
           <div className="text-neutral-500 text-body-1">
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/signpost.svg"></img><span>{userInfo.postalAddress?.city}</span></div>
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/mail.svg"></img><span>{userInfo.postalAddress?.postalCode}</span></div>
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/call.svg"></img><span>{userInfo.email}</span></div>
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/person.svg"></img><span>{userInfo.firstName} {userInfo.lastName}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/signpost.svg"></img><span>{userInfo?.city}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/mail.svg"></img><span>{userInfo?.postalCode}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/call.svg"></img><span>{userInfo?.mobile}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/person.svg"></img><span>{userInfo?.firstName} {userInfo?.lastName}</span></div>
           </div>
         </div>}</>)}
         {openModal&&<Portal className="w-full lg:w-1/3 md:w-1/2"closeHandler={() => setOpenModal(false)}>
@@ -98,10 +100,26 @@ const Addresses = () => {
                 <input type="text" htmlFor="postalCode" name="postalCode"/>
               </div>
             </div>
+            <p className="mr-2 text-body1-strong">اطلاعات گیرنده سفارش</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="require" id="firstName">نام گیرنده</label>
+                <input type="text" htmlFor="firstName" name="firstName"/>
+              </div>
+              <div>
+                <label className="require" id="lastName">نام خانوادگی گیرنده</label>
+                <input type="text" htmlFor="lastName" name="lastName"/>
+              </div>
+              <div>
+                <label className="require" id="mobile">شماره موبایل</label>
+                <input type="text" htmlFor="mobile" name="mobile"/>
+              </div>
+            </div>
             <input type="submit" className="primary-button mt-6" value="ثبت آدرس"/>
           </form>
         </Portal>}
       </div>
   );
 };
+
 export default Addresses;
