@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+
 import Portal from "../../../component/layout/portal";
 import LoaderLinear from "./../../../component/layout/loader-linear";
+import { showAlert } from "../../../lib/showAlert";
 
 const PersonalInfo = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -8,6 +10,7 @@ const PersonalInfo = () => {
   const [openModal, setOpenModal] = useState(false);
   const formRef = useRef();
   useEffect(async () => {
+    let isSubscribed = true;
     try {
       const response = await fetch(
         "http://127.0.0.1:3080/api/v1/users/me?fields=firstName,lastName,mobile,email,nationalIdentityNumber,birthday",
@@ -20,16 +23,52 @@ const PersonalInfo = () => {
       setLoading(false);
     } catch (err) {
       console.log(err);
-    }
+      if (isSubscribed) {
+        setUserInfo(null);
+        setLoading(false);
+    }}
+    return () => {(isSubscribed = false)}
   }, []);
+
+  const submitPersonalInfoHandler=async (e)=>{
+    e.preventDefault();
+    const personalInfo=Object.fromEntries([...new FormData(formRef.current)]);
+    // personalInfo=changeObjectValueType(personalInfo,Number,"mobile","birthDay","birthMonth","birthYear","nationalIdentityNumber")
+    let birthday={
+      birthDay: personalInfo.birthDay,
+      birthMonth: personalInfo.birthMonth,
+      birthYear: personalInfo.birthYear
+    }
+    delete personalInfo.birthDay;delete personalInfo.birthMonth;delete personalInfo.birthYear;
+    try{
+      const response = await fetch(
+        `http://127.0.0.1:3080/api/v1/users/updateMe`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({...personalInfo,birthday}),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      showAlert(result.message, result.status);
+      if (result.status !== "success") throw new Error(result.message);
+      setOpenModal(false);
+    }catch(err){
+      console.log(err.message);
+    }
+  };
+
   const yearOption=[];
   const dayOption=[];
   for (let i = 1300; i <1399; i++) {
-    yearOption.push(<option value={i}>{i}</option>);
+    yearOption.push(<option key={i} value={i}>{i}</option>);
   };
   for(let i=1;i<=31;i++){
-    dayOption.push(<option value={i}>{i}</option>);
-  }
+    dayOption.push(<option key={i} value={i}>{i}</option>);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 px-10 py-7 gap-6 card relative">
       {loading&&<LoaderLinear />}
@@ -55,7 +94,7 @@ const PersonalInfo = () => {
       </div>
       <div className="">
         <p className="text-body-1 text-neutral-500">تاریخ تولد</p>
-        <p className="text-subtitle-strong text-neutral-700">{userInfo.birthday||"اطلاعاتی در این خصوص وجود ندارد"}</p>
+        <p className="text-subtitle-strong text-neutral-700">{userInfo.birthday.birthYear}/{userInfo.birthday.birthMonth}/{userInfo.birthday.birthDay}</p>
       </div>
       <div className="flex items-end justify-end ">
         <button onClick={()=>setOpenModal(true)} className="text-body1-strong text-button-primary border border-solid border-button-primary px-7 py-5 rounded-xl">
@@ -71,48 +110,48 @@ const PersonalInfo = () => {
                 onClick={() => setOpenModal(false)}
               />
         </div>
-        <form className="grid gap-6 text-body-1" ref={formRef}>
+        <form className="grid gap-6 text-body-1" ref={formRef} onSubmit={submitPersonalInfoHandler}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="require" id="firstName" >نام</label>
-                <input type="text" htmlFor="firstName" name="firstName"/>
+                <input type="text" htmlFor="firstName" name="firstName" disabled defaultValue={userInfo.firstName}/>
               </div>
               <div>
                 <label className="require" id="lastName">نام خانوادگی</label>
-                <input type="text" htmlFor="lastName" name="lastName"/>
+                <input type="text" htmlFor="lastName" name="lastName" disabled defaultValue={userInfo.lastName}/>
               </div>
             </div>
             <div>
                 <label className="require" id="nationalIdentityNumber" >کدملی</label>
-                <input type="text" htmlFor="nationalIdentityNumber" name="nationalIdentityNumber"/>
+                <input type="text" htmlFor="nationalIdentityNumber" name="nationalIdentityNumber" defaultValue={userInfo.nationalIdentityNumber}/>
             </div>
             <div>
                 <label className="require" id="mobile" >شماره موبایل</label>
-                <input type="text" htmlFor="mobile" name="mobile"/>
+                <input type="text" htmlFor="mobile" name="mobile" defaultValue={userInfo.mobile}/>
             </div>
             <div>
                 <label className="require" id="email" >ایمیل</label>
-                <input type="text" htmlFor="email" name="email"/>
+                <input type="text" htmlFor="email" name="email" disabled defaultValue={userInfo.email}/>
             </div> 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label className="require" id="birthYear" >سال</label>
-                    <select id="birthMonth" name="birthMonth">
+                    <select id="birthYear" name="birthYear">
                         {yearOption}
                     </select>
                 </div> 
                 <div>
                     <label className="require" id="birthMonth" >ماه</label>
                     <select id="birthMonth" name="birthMonth">
-                        <option value="01">فروردین</option>
-                        <option value="02">اردیبهشت</option>
-                        <option value="03">خرداد</option>
-                        <option value="04">تیر</option>
-                        <option value="05">مرداد</option>
-                        <option value="06">شهریور</option>
-                        <option value="07">مهر</option>
-                        <option value="08">آبان</option>
-                        <option value="09">آذر</option>
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
                         <option value="10">دی</option>
                         <option value="11">بهمن</option>
                         <option value="12">اسفند</option>
@@ -125,7 +164,7 @@ const PersonalInfo = () => {
                     </select>
                 </div> 
             </div>          
-            <input type="submit" className="primary-button mt-6" value="ثبت آدرس"/>
+            <input type="submit" className="primary-button mt-6" value="ثبت اطلاعات"/>
         </form>
       </Portal>}
     </div>

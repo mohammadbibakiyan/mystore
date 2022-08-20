@@ -24,7 +24,6 @@ const Addresses = () => {
   const submitAddressHandler=async(e)=>{
     e.preventDefault(); 
     const addressData=Object.fromEntries([...new FormData(formRef.current)]);
-    console.log(addressData);
     try{
       const response = await fetch(
         `http://127.0.0.1:3080/api/v1/users/updateMe`,
