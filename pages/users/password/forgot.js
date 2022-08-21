@@ -4,7 +4,7 @@ const Forgot=()=>{
     return(
         <div className="p-12 max-w-2xl mx-auto card">
             <div className="relative">
-                <img src="/icons/logo2.svg" className="w-96 mx-auto"/>
+                <img src="/icons/logo2.svg" className="w-60 mb-14 mx-auto"/>
                 <a className="cursor-pointer"><Link href="/users/login"><img src="/icons/arrow-forward2.svg" className="w-10 absolute top-1/2 transform -translate-y-1/2"/></Link></a>
             </div>
             <h1 class="text-h4 text-neutral-900">تغییر رمز عبور</h1>

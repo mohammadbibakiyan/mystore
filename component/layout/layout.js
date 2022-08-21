@@ -41,8 +41,8 @@ const Layout=(props)=>{
             </div>
 
             <div className="flex justify-between items-center">
-                <div className="flex items-center flex-grow">
-                    <Link href="/"><a className="hidden md:inline cursor-pointer"><img src="/icons/logo2.svg" alt="logo" className="w-64"/></a></Link>
+                <div className="flex items-center flex-grow py-5">
+                    <Link href="/"><a className="hidden md:inline cursor-pointer"><img src="/icons/logo2.svg" alt="logo" className="w-60 ml-8"/></a></Link>
                     <div className="w-full max-w-5xl relative">
                         <img src="/icons/search.svg" className="w-10 opacity-50 absolute mt-5"/>
                         {inputSearchValue&&<img src="/icons/close.svg" onClick={()=>setInputSearchValue("")} className="absolute left-2 mt-6 opacity-50 w-7 border border-solid border-neutral-900 rounded-3xl"/>}

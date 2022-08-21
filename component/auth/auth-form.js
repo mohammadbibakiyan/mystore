@@ -72,6 +72,7 @@ const AuthForm = (props) => {
 
   return (
     <div className="p-14 max-w-2xl mx-auto card">
+      <img src="/icons/logo2.svg" className="w-60 mb-14 mx-auto"/>
       <h1 className="text-h4 flex gap-5 cursor-pointer">
         <div
           className={`text-center w-1/2 ${
