@@ -1,8 +1,10 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
-import { showAlert } from "../../lib/showAlert";
 import { useDispatch } from "react-redux";
+
+import { showAlert } from "../../lib/showAlert";
 import  {loginF}  from "./../../store/slice/auth-slice";
+import Link from "next/link";
 
 const AuthForm = (props) => {
   const router=useRouter();
@@ -69,7 +71,7 @@ const AuthForm = (props) => {
   };
 
   return (
-    <div className="p-14 max-w-xl px-2 mx-auto">
+    <div className="p-14 max-w-2xl mx-auto card">
       <h1 className="text-h4 flex gap-5 cursor-pointer">
         <div
           className={`text-center w-1/2 ${
@@ -117,6 +119,9 @@ const AuthForm = (props) => {
           </label>
           <input type="password" htmlFor="password" ref={passwordRef} />
         </div>
+        {login&&(
+          <a className="cursor-pointer"><Link href="/users/password/forgot"><div className="text-button-secondary mt-5 flex font-bold">فراموشی رمز عبور <img src="/icons/arrow-back.svg" className="w-8 p-2"/></div></Link></a>
+        )}
         {!login && (
           <div>
             <label id="passwordConfirm" className="text-body-2">
