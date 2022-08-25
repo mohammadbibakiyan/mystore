@@ -1,11 +1,27 @@
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addToCart,removeFromCart } from "../../store/slice/cart-slice";
+
+import { addToCart,removeFromCart,removeCart } from "../../store/slice/cart-slice";
+import {showAlert} from "./../../lib/showAlert"
 
 const CartPage=()=>{
     const cart=useSelector(state=>state.cart);
     const dispatch=useDispatch();
+    const createOrderHandler=async()=>{
+        const orderItems=cart.products.map(e=>{
+            return {product:e._id,quantity:{black:e.quantity}}
+        });
+        try{
+            const response=await fetch("http://127.0.0.1:3080/api/v1/orders",{method:"POST",body:JSON.stringify(orderItems),credentials:"include",headers: {'Content-Type': 'application/json'},});
+            const result=await response.json();
+            showAlert(result.message, result.status);
+            if(!result.message==="success") throw new Error(result.message);
+            dispatch(removeCart());
+            localStorage.removeItem("cart")
+        }catch(err){
+            console.log(err);
+        }
+    }
     return(
         <>
             {cart.products.length>0&&<section className="grid grid-cols-12 gap-3 p-5">
@@ -65,7 +81,7 @@ const CartPage=()=>{
                         <p className="text-body2-strong">سود شما از خرید</p>
                         <p className="text-subtitle-strong">{cart.discountPrice.toLocaleString()} تومان</p>
                     </div>}
-                    <button className="primary-button">ادامه</button>
+                    <button className="primary-button" onClick={createOrderHandler}>ادامه</button>
                 </div>
             </div>
             </section>}

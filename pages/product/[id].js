@@ -28,7 +28,7 @@ const ProductDetail=(props)=>{
                             </div>
                             <div>
                                 <p className='text-h5 text-neutral-900'>رنگ:</p>
-                                <div className='flex gap-3'>{Object.keys(props.quantity).map(key =><div className={`bg-${key} w-12 h-12 rounded-full`}></div>)}
+                                <div className='flex gap-3'>{Object.keys(props.quantity).map((key,i) =><div key={i} className={`bg-${key} w-12 h-12 rounded-full`}></div>)}
                                 </div>
                             </div>
                             <div>{/* product feature */}
