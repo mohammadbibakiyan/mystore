@@ -1,5 +1,5 @@
 import { useState } from "react";
-const ProductIntroduction=(props)=>{
+const ProductDescription=(props)=>{
     const [more,setMore]=useState(false);
     return(
         <div className="mt-5">
@@ -12,4 +12,4 @@ const ProductIntroduction=(props)=>{
         </div>
     )
 }
-export default ProductIntroduction;
+export default ProductDescription;

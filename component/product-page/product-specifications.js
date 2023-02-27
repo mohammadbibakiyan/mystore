@@ -17,10 +17,10 @@ const ProductSpecifications=(props)=>{
                 <div className="flex-grow">
                     {specifications.map((e,i)=><div className="flex items-center text-body-1" key={i}>
                         <div className="w-96">
-                            <p className="py-3 px-2 text-neutral-500  ml-6">{e[0]}</p>
+                            <p className="py-3 px-2 text-neutral-500  ml-6">{e.title}</p>
                         </div>
                         <div className="border-0 border-b-2 border-solid w-full max-w-4xl border-neutral-100">
-                            <p className="color-gray-900">{e[1]}</p>
+                            <p className="color-gray-900">{e.value}</p>
                         </div>
                     </div>)}
                     {!more&&<span className="text-body-2 text-secondary-700 cursor-pointer" onClick={()=>setMore(true)}>بیشتر&gt;</span>}

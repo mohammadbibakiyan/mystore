@@ -5,7 +5,7 @@ import Loader from "../../../component/layout/loader";
 import jwt_decode from "jwt-decode";
 
 const Profile = () => {
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   let items = [
     {
       _id: "62db78ed8d89659afa3aca7b",
@@ -44,16 +44,15 @@ const Profile = () => {
       user: "62d775fdd9e0d2322e43824a",
     },
   ];
+  useEffect(async () => {
+    const response = await fetch("http://127.0.0.1:3080/api/v1/users/me", {
+      credentials: "include",
+    });
+    const result = await response.json();
+    setUser(result.user);
+  }, []);
 
-  // useEffect(async () => {
-  //   const response = await fetch("http://127.0.0.1:3080/api/v1/users/me", {
-  //     credentials: "include",
-  //   });
-  //   const result = await response.json();
-  //   setUser(result.user);
-  // }, []);
-
-  // if (!user) return <Loader />;
+  if (!user) return <Loader />;
 
   return (
     <>
@@ -102,9 +101,9 @@ const Profile = () => {
           </p>
         </div>
         <div className="grid grid-cols-3">
-          {items.map((e) => (
+          {/* {items.map((e) => (
             <ProductItem key={e._id} {...e} />
-          ))}
+          ))} */}
         </div>
       </div>
     </>

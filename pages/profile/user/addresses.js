@@ -10,11 +10,11 @@ const Addresses = () => {
   const [openModal,setOpenModal]=useState(false);
   const formRef=useRef();
   useEffect(async()=>{
-    try{const response=await fetch("http://127.0.0.1:3080/api/v1/users/me?fields=postalAddress",{
+    try{const response=await fetch("http://127.0.0.1:3080/api/v1/users/me",{
       credentials:"include"
     });
     const result=await response.json();
-    if(result.user.postalAddress) {setUserInfo(result.user.postalAddress);}
+    if(result.user.postal_address) {setUserInfo(result.user.postal_address);}
     setLoading(false);
   }catch(err){
       console.log(err);
@@ -29,13 +29,13 @@ const Addresses = () => {
         `http://127.0.0.1:3080/api/v1/users/updateMe`,
         {
           method: "PATCH",
-          body: JSON.stringify({postalAddress:{...addressData}}),
+          body: JSON.stringify({postal_address:{...addressData}}),
           headers: { "Content-Type": "application/json" },
           credentials: "include",
         }
       );
       const result = await response.json();
-      console.log(result);
+
       showAlert(result.message, result.status);
       if (result.status !== "success") throw new Error(result.message);
       setOpenModal(false);
@@ -55,10 +55,10 @@ const Addresses = () => {
         {userInfo&&<div className="pt-7">
           <div className="text-body1-strong text-neutral-700">{userInfo?.address}</div>
           <div className="text-neutral-500 text-body-1">
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/signpost.svg"></img><span>{userInfo?.city}</span></div>
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/mail.svg"></img><span>{userInfo?.postalCode}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/signpost.svg"></img><span>{userInfo?.city_name}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/mail.svg"></img><span>{userInfo?.postal_code}</span></div>
             <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/call.svg"></img><span>{userInfo?.mobile}</span></div>
-            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/person.svg"></img><span>{userInfo?.firstName} {userInfo?.lastName}</span></div>
+            <div className="flex gap-2 items-center"><img className="w-8 h-8 opacity-50" src="/icons/person.svg"></img><span>{userInfo?.first_name} {userInfo?.last_name}</span></div>
           </div>
         </div>}</>)}
         {openModal&&<Portal className="w-full lg:w-1/3 md:w-1/2"closeHandler={() => setOpenModal(false)}>
@@ -78,17 +78,17 @@ const Addresses = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="require" id="state" >استان</label>
-                <input type="text" htmlFor="state" name="state"/>
+                <input type="text" htmlFor="state" name="state_name"/>
               </div>
               <div>
                 <label className="require" id="city">شهر</label>
-                <input type="text" htmlFor="city" name="city"/>
+                <input type="text" htmlFor="city" name="city_name"/>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="require" id="buildingNumber">پلاک</label>
-                <input type="text" htmlFor="buildingNumber" name="buildingNumber"/>
+                <input type="text" htmlFor="buildingNumber" name="building_number"/>
               </div>
               <div>
                 <label id="unit">واحد</label>
@@ -96,18 +96,18 @@ const Addresses = () => {
               </div>
               <div className="col-span-2">
                 <label className="require" id="postalCode">کدپستی</label>
-                <input type="text" htmlFor="postalCode" name="postalCode"/>
+                <input type="text" htmlFor="postalCode" name="postal_code"/>
               </div>
             </div>
             <p className="mr-2 text-body1-strong">اطلاعات گیرنده سفارش</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="require" id="firstName">نام گیرنده</label>
-                <input type="text" htmlFor="firstName" name="firstName"/>
+                <input type="text" htmlFor="firstName" name="first_name"/>
               </div>
               <div>
                 <label className="require" id="lastName">نام خانوادگی گیرنده</label>
-                <input type="text" htmlFor="lastName" name="lastName"/>
+                <input type="text" htmlFor="lastName" name="last_name"/>
               </div>
               <div>
                 <label className="require" id="mobile">شماره موبایل</label>

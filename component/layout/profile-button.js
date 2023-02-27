@@ -15,7 +15,6 @@ const ProfileButton = () => {
     try {
       const response = await fetch("http://127.0.0.1:3080/api/v1/users/logout");
       const result=await response.json();
-      console.log(result);
       dispatch(logoutF());
     } catch (err) {
       console.log(err.message);

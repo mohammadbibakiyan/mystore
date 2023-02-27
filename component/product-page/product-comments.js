@@ -2,21 +2,21 @@ import { useRef, useState } from "react";
 import { showAlert } from "../../lib/showAlert";
 import Portal from "../layout/portal";
 
-const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
+const ProductComments = ({ _id,title,ratingsAverage, comments = [] }) => {
   const [show, setShow] = useState(false);
   const titleRef = useRef();
-  const reviewRef = useRef();
-  const ratingRef = useRef();
+  const bodyRef = useRef();
+  const rateRef = useRef();
   const submitViewHandler = async (e) => {
     e.preventDefault();
     const title = titleRef.current.value;
-    const review = reviewRef.current.value;
-    const rating = ratingRef.current.value;
+    const body = bodyRef.current.value;
+    const rate = rateRef.current.value;
     try {
-      const response = await fetch(`http://127.0.0.1:3080/api/v1/products/${_id}/reviews`,
+      const response = await fetch(`http://127.0.0.1:3080/api/v1/products/${_id}/comments`,
         {
           method: "POST",
-          body: JSON.stringify({ title, review, rating }),
+          body: JSON.stringify({ title, body, rate }),
           headers: { "Content-Type": "Application/json" },
           credentials: "include",
         }
@@ -77,7 +77,7 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
               ></div>
             </div>
             <p className="text-neutral-400 mr-2">
-              {reviews.length} نفر امتیاز داده اند
+              {comments.length} نفر امتیاز داده اند
             </p>
           </div>
           <p className="text-neutral-400 mr-2 text-caption mt-4">
@@ -94,14 +94,14 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
         </div>
 
         <div className="lg:col-span-3  mt-8 lg:m-0 pr-5 flex flex-col gap-10">
-          {reviews.map(e => (
+          {comments.map(e => (
             <article className="flex" key={e._id}>
               <div
                 className={`bg-${getRateColor(
-                  e.rating
+                  e.rate
                 )} text-caption-strong h-10 p-5 text-white rounded-md flex items-center justify-center ml-8`}
               >
-                {e.rating}
+                {e.rate}
               </div>
               <div className="divide-y-2 divide-solid divide-neutral-200 divide-x-0">
                 <div>
@@ -112,12 +112,12 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
                         month: "long",
                         day: "numeric",
                         year: "numeric",
-                      }).format(new Date(e.createAt))}
+                      }).format(new Date(e.createdAt))}
                     </p>
-                    <p>{e.user.firstName} {e.user.lastName}</p>
+                    <p>{e.user.first_name} {e.user.last_name}</p>
                   </div>
                 </div>
-                <p className="text-body-1 pt-3 mb-1">{e.review}</p>
+                <p className="text-body-1 pt-3 mb-1">{e.body}</p>
               </div>
             </article>
           ))}
@@ -141,7 +141,7 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
           <form className="mt-16">
             <div className="flex gap-20">
               <label className="text-body1-strong">امتیاز دهید! </label>
-              <input type="range" id="range" max={5} min={1} ref={ratingRef} />
+              <input type="range" id="range" max={5} min={1} ref={rateRef} />
             </div>
             <p className="text-h5 mt-8">دیدگاه خود را شرح دهید</p>
             <div className="mt-4">
@@ -150,7 +150,7 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
             </div>
             <div className="mt-4">
               <label className="text-body-1">متن نظر</label>
-              <textarea ref={reviewRef} />
+              <textarea ref={bodyRef} />
             </div>
             <button
               className="primary-button mt-16"
@@ -165,4 +165,4 @@ const ProductViews = ({ _id,title,ratingsAverage, reviews = [] }) => {
   );
 };
 
-export default ProductViews;
+export default ProductComments;

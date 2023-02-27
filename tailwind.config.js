@@ -21,6 +21,7 @@ module.exports = {
     },
     minWidth: {
       '80': '20rem',
+      '10':'2.5rem',
     },
     colors: {
       "white":"#fff",

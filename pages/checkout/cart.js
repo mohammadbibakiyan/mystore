@@ -32,10 +32,14 @@ const CartPage=()=>{
                 </div>
             
                 {cart.products.map((e)=><div key={e._id} className="grid grid-cols-6 gap-10 my-5">
-                    <div ><img src={e.imageCover}/></div>
+                    <div ><img src={e.images.main}/></div>
                     <div className="col-span-5">
-                        <h3 className="text-body1-strong mb-10">{e.title}</h3>
+                        <h3 className="text-body1-strong mb-10">{e.title_fa}</h3>
                         <div className="text-neutral-500 text-body-2 flex flex-col gap-5">
+                            <div className="flex items-center">
+                                <div className="ml-3 w-8 h-8 rounded-full" style={{backgroundColor:`${e.color.hex_code}`}}></div>
+                                <p>{e.color.title}</p>
+                            </div>
                             <div className="flex items-center">
                                 <div className="ml-3"><img src="/icons/verify.svg" className="w-7 fill-red-500"/></div>
                                 <p>گارانتی اصالت و سلامت فیزیکی کالا</p>
@@ -55,13 +59,13 @@ const CartPage=()=>{
                         </div>
                     </div>
                     <div className="text-h5 text-primary-500 flex justify-evenly border border-solid border-gray-300 rounded-2xl">
-                        <button onClick={()=>dispatch(addToCart({_id:e._id}))}>+</button>
+                        <button onClick={()=>dispatch(addToCart({_id:e._id,color:e.color}))}>+</button>
                         <span>{e.quantity}</span>
-                        <button onClick={()=>dispatch(removeFromCart({_id:e._id}))}>-</button>
+                        <button onClick={()=>dispatch(removeFromCart({_id:e._id,color:e.color}))}>-</button>
                     </div>
                     <div className="col-span-5">
-                        {e.priceDiscount>0&&<div className="text-primary-700"><span>{(e.price*e.priceDiscount/100).toLocaleString()}</span><span>تومان تخفیف</span></div>}
-                        <div className="text-h5"><span>قیمت</span><span>{((e.price)-(e.price*e.priceDiscount/100)).toLocaleString()} تومان</span></div>
+                        {e.price.discount_percent>0&&<div className="text-primary-700"><span>{(e.price.rrp_price*e.price.discount_percent/100).toLocaleString()}</span><span>تومان تخفیف</span></div>}
+                        <div className="text-h5"><span>قیمت</span><span>{((e.price.rrp_price)-(e.price.rrp_price*e.price.discount_percent/100)).toLocaleString()} تومان</span></div>
                     </div>
                 </div>)}
                 

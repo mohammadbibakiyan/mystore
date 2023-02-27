@@ -77,7 +77,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
                 </span>
                 <p className="text-subtitle">{e.text}</p>
               </div>
-              {e.answers?.map((e) => (
+              {e.short_answers?.map((e) => (
                 <div key={e._id}>
                   <div className="mt-4 text-neutral-600 flex items-center">
                     <p className="text-caption ml-4">پاسخ</p>
@@ -91,7 +91,7 @@ const ProductQuestion = ({ _id, questions = [] }) => {
                   className="text-button-secondary text-button-2"
                   onClick={() => setShowAnswerBox(e)}
                 >
-                  {e.answers?.length > 0 ? "ثبت پاسخ جدید" : "ثبت پاسخ "} &#62;
+                  {e.short_answers?.length > 0 ? "ثبت پاسخ جدید" : "ثبت پاسخ "} &#62;
                 </button>
               </div>
             </article>

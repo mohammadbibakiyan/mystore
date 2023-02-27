@@ -344,8 +344,18 @@ select{
   font-weight: 700;
   line-height: 2.17;
 }
-
-
+.variant-info-selected {
+  border: 3px solid var(--color-secondary-500);
+  position: relative;
+}
+.variant-info-selected::before{
+  content: "✓";
+  position: absolute;
+  top:50%;
+  left: 50%; 
+  transform: translate(-50%,-50%);
+  color:white;
+}
 
 @media screen and (min-width: 1024px) {
   .text-h4 {

@@ -39,8 +39,8 @@ const AuthForm = (props) => {
           body: JSON.stringify({ email, password }),
         });
         const result=await response.json(); 
-        showAlert(result.message,result.status);
         if(result.status!=="success") throw new Error(result.message);
+        showAlert(result.message,result.status);
         dispatch(loginF({role:result.data.role}));
         router.replace("/");
       } catch (err) {
@@ -60,8 +60,8 @@ const AuthForm = (props) => {
           body: JSON.stringify({ email, password,firstName,lastName,passwordConfirm }),
         });
         const result=await response.json(); 
-        showAlert(result.message,result.status);
         if(result.status!=="success") throw new Error(result.message);
+        showAlert(result.message,result.status);
         dispatch(loginF({role:result.data.role}));
         router.replace("/");
       } catch (err) {
@@ -135,7 +135,7 @@ const AuthForm = (props) => {
             />
           </div>
         )}
-        <p className="text-body-2 text-red-700 h-8">{message}</p>
+        <p className="text-body-2 text-primary-700 min-h-[32px]">{message}</p>
         <button className="primary-button">{login ? "ورود" : "ثبت نام"}</button>
         <p>با ورود به سایت، شرایط و قوانین را می پذیرم.</p>
       </form>

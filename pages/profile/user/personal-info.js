@@ -9,11 +9,12 @@ const PersonalInfo = () => {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const formRef = useRef();
+  
   useEffect(async () => {
     let isSubscribed = true;
     try {
       const response = await fetch(
-        "http://127.0.0.1:3080/api/v1/users/me?fields=firstName,lastName,mobile,email,nationalIdentityNumber,birthday",
+        "http://127.0.0.1:3080/api/v1/users/me?fields=first_name,last_name,mobile,email,national_identity_number,birthday_iso",
         { credentials: "include" }
       );
       const result = await response.json();
@@ -33,25 +34,20 @@ const PersonalInfo = () => {
   const submitPersonalInfoHandler=async (e)=>{
     e.preventDefault();
     const personalInfo=Object.fromEntries([...new FormData(formRef.current)]);
-    // personalInfo=changeObjectValueType(personalInfo,Number,"mobile","birthDay","birthMonth","birthYear","nationalIdentityNumber")
-    let birthday={
-      birthDay: personalInfo.birthDay,
-      birthMonth: personalInfo.birthMonth,
-      birthYear: personalInfo.birthYear
-    }
-    delete personalInfo.birthDay;delete personalInfo.birthMonth;delete personalInfo.birthYear;
+    const birthday_iso=`${personalInfo.birthYear}/${personalInfo.birthMonth}/${personalInfo.birthDay}`
+    delete personalInfo.birthYear,delete personalInfo.birthDay,delete personalInfo.birthMonth;
     try{
       const response = await fetch(
         `http://127.0.0.1:3080/api/v1/users/updateMe`,
         {
           method: "PATCH",
-          body: JSON.stringify({...personalInfo,birthday}),
+          body: JSON.stringify({...personalInfo,birthday_iso}),
           headers: { "Content-Type": "application/json" },
           credentials: "include",
         }
       );
       const result = await response.json();
-      console.log(result);
+
       showAlert(result.message, result.status);
       if (result.status !== "success") throw new Error(result.message);
       setOpenModal(false);
@@ -62,25 +58,26 @@ const PersonalInfo = () => {
 
   const yearOption=[];
   const dayOption=[];
+
   for (let i = 1300; i <1399; i++) {
     yearOption.push(<option key={i} value={i}>{i}</option>);
   };
   for(let i=1;i<=31;i++){
     dayOption.push(<option key={i} value={i}>{i}</option>);
   };
-
+  console.log(userInfo);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 px-10 py-7 gap-6 card relative">
       {loading&&<LoaderLinear />}
       {!loading&&<><div className="">
         <p className="text-body-1 text-neutral-500">نام و نام خانوادگی</p>
         <p className="text-subtitle-strong text-neutral-700">
-          {userInfo?.firstName} {userInfo?.lastName}
+          {userInfo?.first_name} {userInfo?.last_name}
         </p>
       </div>
       <div className="">
         <p className="text-body-1 text-neutral-500">کد ملی</p>
-        <p className="text-subtitle-strong text-neutral-700">{userInfo?.nationalIdentityNumber||"اطلاعاتی در این خصوص وجود ندارد"}</p>
+        <p className="text-subtitle-strong text-neutral-700">{userInfo?.national_identity_number||"اطلاعاتی در این خصوص وجود ندارد"}</p>
       </div>
       <div className="">
         <p className="text-body-1 text-neutral-500">شماره موبایل</p>
@@ -94,13 +91,14 @@ const PersonalInfo = () => {
       </div>
       <div className="">
         <p className="text-body-1 text-neutral-500">تاریخ تولد</p>
-        <p className="text-subtitle-strong text-neutral-700">{userInfo.birthday.birthYear}/{userInfo.birthday.birthMonth}/{userInfo.birthday.birthDay}</p>
+        <p className="text-subtitle-strong text-neutral-700">{userInfo?.birthday_iso||"اطلاعاتی در این خصوص وجود ندارد"}</p>
       </div>
       <div className="flex items-end justify-end ">
         <button onClick={()=>setOpenModal(true)} className="text-body1-strong text-button-primary border border-solid border-button-primary px-7 py-5 rounded-xl">
           ویرایش مشخصات
         </button>
-      </div></>}
+      </div>
+      </>}
       {openModal&&<Portal closeHandler={()=>setOpenModal(false)} className="w-full lg:w-1/3 md:w-1/2">
         <div className="flex justify-between mb-8">
               <p className="text-h5">ویرایش اطلاعات حساب کاربری</p>
@@ -114,16 +112,16 @@ const PersonalInfo = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="require" id="firstName" >نام</label>
-                <input type="text" htmlFor="firstName" name="firstName" disabled defaultValue={userInfo.firstName}/>
+                <input type="text" htmlFor="firstName" name="first_name" disabled defaultValue={userInfo.first_name}/>
               </div>
               <div>
                 <label className="require" id="lastName">نام خانوادگی</label>
-                <input type="text" htmlFor="lastName" name="lastName" disabled defaultValue={userInfo.lastName}/>
+                <input type="text" htmlFor="lastName" name="last_name" disabled defaultValue={userInfo.last_name}/>
               </div>
             </div>
             <div>
                 <label className="require" id="nationalIdentityNumber" >کدملی</label>
-                <input type="text" htmlFor="nationalIdentityNumber" name="nationalIdentityNumber" defaultValue={userInfo.nationalIdentityNumber}/>
+                <input type="text" htmlFor="nationalIdentityNumber" name="national_identity_number" defaultValue={userInfo.national_identity_number}/>
             </div>
             <div>
                 <label className="require" id="mobile" >شماره موبایل</label>
